@@ -1,0 +1,12 @@
+<div class="storyTitle"><%= story.title %></div>
+<div class="storyDate"><%= link_if_possible(story.author.name, story.author.url) %>,
+<%= story.createtime %></div>
+
+<div><%= story.content.to_s.gsub(/[\r\n][\n\r]/, "<br />\n")  %></div>
+<p class="small">
+...&nbsp;<%= link_to "link", :action => 'show_story', :storyid => story %>
+<%= if story.show_comments? then "(" + story.comments_count.to_s + " comments)" end %>
+<%= if story.may_comment then "&nbsp;&nbsp;...&nbsp;" + link_to("comment", :action => 'new_comment', :id => story) end %>
+<%= if @may_edit then "&nbsp;&nbsp;...&nbsp;" + link_to("edit", :action => 'edit_story', :id => story) end %>
+</p>
+<br />

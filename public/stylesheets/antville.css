@@ -1,0 +1,338 @@
+/**
+* Basic page structure.
+* When changing something, make sure widths are coherent.
+*/
+table.main {
+   width: 700px;
+}
+
+td.header {
+   height: 53px;
+   padding-left: 40px;
+   font-weight: bold;
+}
+
+td.center { 
+   width: 70%; 
+   padding: 25px 20px 10px 40px; 
+   vertical-align: top; 
+}
+
+td.right { 
+   width: 30%; 
+   padding: 0px 0px 10px 0px; 
+   vertical-align: top; 
+   border-left: 1px solid #dddddd;
+}
+
+/**
+* Colors, fonts, styles.
+*/
+
+body {
+   background-color: #ffffff;
+   font-family: Verdana, Helvetica, Arial, sans-serif;
+   font-size: 13px;
+   color: #000000;
+}
+
+td {
+   font-size: 13px;
+   line-height: 1.2em;
+}
+
+td.header {
+   background-image: url("/static/layouts/default/webloghead.gif");
+   font-size: 25px;
+   font-weight: bold;
+}
+
+div.boxheader {
+   color: #959595;
+   overflow: hidden;
+   font-size: 10px;
+   padding-left: 6px;
+   border-top: 1px solid #dddddd;
+}
+
+div.boxline {
+   height:1px;
+   overflow:hidden;
+   border-bottom: 1px solid #dddddd;
+}
+
+div.box {
+   font-size: 11px;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   color: #959595;
+   line-height: 1.4em;
+   text-align: right;
+   padding: 0em 0em 0.4em 0.4em;
+   margin: 0em 0em 0.2em 0em;
+}
+
+div.ample { margin-bottom: 5px; }
+
+small, .small {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   color: #959595;
+}
+
+/* this is for mozilla to align tables in boxes right */
+div.box table {
+   margin-left: auto; 
+   margin-right: 0px; 
+}
+
+fieldset {
+   padding-left: 8px;
+   padding-top: 0px;
+   margin-top: 6px;
+   margin-bottom: 6px;
+}
+
+p {
+   margin-top: 6px;
+   margin-bottom: 10px;
+}
+
+form { margin: 0px; }
+
+a {text-decoration: none;}
+a:link {color: #ff4040;}
+a:visited {color: #ff4040;}
+a:active {color: #ff4040;}
+a:hover {
+   color: #ffffff;
+   background-color: #ff4040;
+}
+
+.message {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+   padding: 1px;
+   margin-top: 6px;
+   margin-bottom: 6px;
+   color: #d50000;
+}
+
+.message input {
+   font-size:9px;
+   padding:0px;
+   margin:0px;
+}
+
+.historyItem {
+   color: #000000;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   padding-bottom: 0.3em;
+}
+
+/* calendar */
+
+.calHead {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+   text-align: center;
+}
+
+.calDay {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   text-align: center;
+}
+
+.calSelDay {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   border: 1px solid #ff4040;
+   text-align: center;
+}
+
+.calFoot {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   text-align: center;
+}
+
+.dayHeader {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   color: #959595;
+   font-weight: bold;
+   margin-bottom:10px;
+}
+
+/* story display classes */
+
+.storyDate {
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   color: #959595;
+   margin-bottom: 6px;
+}
+
+.storyTitle {
+   font-family: Verdana, Helvetica, Arial, sans-serif;
+   font-size: 15px;
+   color: #d50000;
+   font-weight: bold;
+}
+
+.listSeparator {
+   width: 50px;
+   border-bottom: 2px dotted #dddddd;
+   margin-top: 10px;
+   margin-bottom: 4px;
+}
+
+.title {
+   font-family: Verdana, Helvetica, Arial, sans-serif;
+   font-size: 15px;
+   color: #000000;
+   font-weight: bold;
+   margin-bottom: 2px;
+}
+
+.reply { padding-left: 40px; }
+
+/* form input classes */
+
+.formTitle {
+   width: 380px;
+   font-family: Verdana, Helvetica, Arial, sans-serif;
+   font-size: 15px;
+   font-weight: bold;
+   border: 1px solid #000000;
+}
+
+.formText {
+   width: 380px;
+   font-family: Verdana, Helvetica, Arial, sans-serif;
+   font-size: 13px;
+   font-weight: normal;
+   border: 1px solid #000000;
+}
+
+.formWide {
+   width: 660px;
+   font-family: Verdana, Helvetica, Arial, sans-serif;
+   font-size: 13px;
+   font-weight: normal;
+}
+
+.listFlag {
+   background-color: #cccccc;
+   padding: 1px;
+   font-family: Verdana, Arial, Helvetica, sans-serif;
+   font-size: 11px;
+   color: #000000;
+}
+
+.pollResultsBar {
+   height: 5px;
+   overflow: hidden;
+   float:left;
+   margin-right: 10px;
+   background-color: #ff4040;
+   font-size: 0px;
+}
+
+.searchbox {
+   font-size: 11px;
+   margin-top: 3px;
+}
+
+.colorpickerWidget {
+   border: 1px solid #cccccc;
+}
+
+.pagelinkTop {
+   margin-bottom: 18px;
+   padding-bottom:3px;
+   border-bottom:1px solid #dddddd;
+}
+
+.pagelinkBottom {
+   margin-top: 18px;
+   padding-top:3px;
+   border-top:1px solid #dddddd;
+   text-align:right;
+}
+
+/* page navigation bar */
+div.pageNav {
+   margin-top: 10px;
+   margin-bottom: 0px;
+   font-size: 11px;
+}
+
+div.pageNavSummary {
+   padding: 1px 5px;
+   background-color: #efefef;
+   border-bottom: 1px solid #cccccc;
+   text-align: left;
+}
+
+div.pageNavBar {
+   padding-top: 1px;
+   text-align: right;
+}
+span.pageNavItem {
+   padding-left: 2px;
+   padding-right: 2px;
+}
+
+span.pageNavSelItem {
+   padding-left: 2px;
+   padding-right: 2px;
+   font-weight: bold;
+}
+
+/* tree navigation in skinmgr */
+ul { list-style: url("/static/layouts/default/bullet.gif") circle; } 
+
+ul.skinmgrTree {
+   padding-left:15px;
+   margin:20px 0px;
+}
+
+ul.skinmgrTree ul {
+   padding-left:30px;
+   margin:0px;
+}
+ul.skinmgrTree li {
+   list-style:none;
+   margin:7px 0px;
+   padding:0px;
+}
+
+ul.skinmgrTree li.skinset {
+   list-style:square;
+   padding-left:0px;
+}
+ul.skinmgrTree a.selected {
+   font-weight:bold;
+}
+
+ul.skinmgrTree li div {
+   font-family:Verdana, Helvetica, Arial, sans-serif;
+   font-size:11px;
+   color:#000000;
+}
+
+/* classes for membermgr */
+.membergroup {
+   font-weight:bold;
+   font-size:15px;
+   margin:10px 0px;
+}
+
+.member {
+   margin-left:20px;
+   margin-bottom:5px;
+}
