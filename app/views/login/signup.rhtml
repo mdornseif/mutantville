@@ -1,14 +1,36 @@
 <div title="<%= title_helper %>" class="form">
   <%= head_helper :error => true %>
-
-  <div class="form-padding">
-    <%= start_form_tag_helper %>
-      <%= render_partial 'edit', :login => @login, :submit => false %></br>
-      <%= render_partial 'password', :submit => false %>
-      
-      <div class="button-bar">
-        <%= button_helper 'signup' %>
-      </div>
+<div>
+  <%= start_form_tag_helper %>
+  <table class="main">
+  <tr>
+  <td class="center">
+  <table border="0" cellspacing="0" cellpadding="3">
+  <tr>
+  <td class="small" nowrap="nowrap">Username:</td>
+  <td nowrap="nowrap"><%= text_field "login", "login", :size => '20' %></td>
+  </tr>
+  <tr>
+  <td class="small" nowrap="nowrap">Password:</td>
+  <td nowrap="nowrap"><%= password_field "login", "password", :size => '20' %></td>
+  </tr>
+  <tr>
+  <td class="small" nowrap="nowrap">Confirm password:</td>
+  <td nowrap="nowrap"><%= password_field "login", "password_confirmation", :size => '20' %></td>
+  <tr>
+  <td class="small" valign="top" nowrap="nowrap">e-mail:</td>
+  <td><%= text_field "login", "email", :size => '20' %></td>
+  </tr>
+  <tr>
+  <td class="small" valign="top" nowrap="nowrap">Personal URL:</td>
+  <td><input value="" type="text" size="20" name="url" /><br />
+  <span class="small">Please enter a URL or an e-mail address here, your username will appear as link next to your stories or comments.</span></td>
+  </tr>
+  <tr>
+  <td nowrap="nowrap">&nbsp;</td>
+  <td nowrap="nowrap"><br /><%= button_helper 'signup' %>&nbsp;<input value="Cancel" type="submit" name="cancel" /></td>
+  </tr>
+  </table>
     <%= end_form_tag %>
   </div>
 </div>

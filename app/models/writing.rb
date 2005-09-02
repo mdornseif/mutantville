@@ -24,6 +24,18 @@ class Writing < ActiveRecord::Base
     read_attribute('TEXT_CREATETIME')
   end
   
+  def created_on
+      createtime
+  end
+  
+  def modifytime
+    read_attribute('TEXT_MODIFYTIME')
+  end
+
+  def updated_on
+    modifytime
+  end
+  
   def content
     read_attribute('TEXT_RAWCONTENT')
   end
@@ -31,6 +43,7 @@ end
 
 class Story < Writing
   has_many :comments, :foreign_key => 'TEXT_F_TEXT_STORY', :order => 'TEXT_CREATETIME DESC'
+  acts_as_taggable
   
   def may_comment
     read_attribute('TEXT_HASDISCUSSIONS')

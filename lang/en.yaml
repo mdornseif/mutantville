@@ -14,7 +14,7 @@ active_record_errors_not_a_number: is not a number
 login_login_succeeded: Login successful
 login_login_failed: Login unsuccessful
 login_signup_succeeded: Signup successful! Please check your registered email account to verify your account registration and continue with the login.
-login_confirmation_email_error: 'Error creating account: confirmation email not sent'
+login_confirmation_email_error: 'Error creating account: confirmation email not sent (maybe our server software is broken)'
 login_updated_password: Your updated password has been emailed to %s.
 login_change_password_email_error: Your password could not be changed at this time. Please retry.
 login_enter_valid_email_address: Please enter a valid email address.
@@ -39,7 +39,7 @@ login_signup_head: Signup
 login_signup_button: Signup
 
 # Login
-login_login_head: Please login
+login_login_head: Please enter your username and password.
 login_firstname_form: First name
 login_lastname_form: Last name
 login_login_form: Login ID

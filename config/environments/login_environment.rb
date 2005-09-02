@@ -1,16 +1,16 @@
 module LoginSystem
   CONFIG = {
     # Source address for user emails
-    :email_from => '',
+    :email_from => 'Maximillian Dornseif <md@hudora.de>',
 
     # Destination email for system errors
-    :admin_email => '',
+    :admin_email => 'mdornseif@mac.com',
 
     # Sent in emails to users
     :app_url => 'http://localhost:3000/',
 
     # Sent in emails to users
-    :app_name => '',
+    :app_name => 'Mutantville',
 
     # Email charset
     :mail_charset => 'utf-8',

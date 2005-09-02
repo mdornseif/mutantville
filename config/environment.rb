@@ -83,5 +83,18 @@ Controllers = Dependencies::LoadingModule.root(
   File.join(RAILS_ROOT, 'components')
 )
 
-# Include your app's configuration here:
+require_dependency 'taggable'
 
+require 'environments/localization_environment'
+require 'localization'
+Localization::load_localized_strings
+require 'environments/login_environment'
+
+ActionMailer::Base.server_settings = {
+  :address => "smtp-mx.mac.com",
+  :port => 25,
+  :domain => 'b.23.nu'
+}
+
+# this has to be changed for differnet tinstallations
+IDHOST = 'mutantville.id.23.nu'

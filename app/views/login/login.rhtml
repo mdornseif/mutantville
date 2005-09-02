@@ -3,16 +3,32 @@
 
   <div class="form-padding">
     <%= start_form_tag_helper  %>
-      <table>
-        <%= form_input :text_field, "login", :size => 30 %><br/>
-        <%= form_input :password_field, "password", :size => 30 %><br/>
+      <table border="0" cellspacing="0" cellpadding="3">
+        <tr>
+          <td class="small" nowrap="nowrap">Username:</td>        
+          <td><%= text_field "login", "login", :size => 15 %></td>
+          <td rowspan="4">&nbsp;</td>
+          <td class="small"><%= link_to 'Not registered yet? Signup!', :action => 'signup' %></td>
+        </tr>
+        <tr>
+        <tr>
+          <td class="small" nowrap="nowrap">Password:</td>
+          <td nowrap="nowrap"><%= password_field "login", "password", :size => 15 %></td>
+          <td class="small"><%= link_to 'Forgot your password?', :action => 'forgot_password' %></td>
+        </tr>
+        <tr>
+         <td nowrap="nowrap">&nbsp;</td>
+          <td colspan="2" class="small" nowrap="nowrap"><input type="checkbox" tabindex="3" name="remember" />Remember me</td>
+        </tr>
+        <tr>
+          <td nowrap="nowrap">&nbsp;</td>
+          <td colspan="2" nowrap="nowrap"><br />
+            <%= button_helper 'login' %>
+          </td>
+        </tr>
       </table>
-
-      <div class="button-bar">
-        <%= button_helper 'login' %>
-        <%= link_helper 'login_signup', :action => 'signup' %> | 
-        <%= link_helper 'login_forgot_password', :action => 'forgot_password' %>      </div>
     <%= end_form_tag %>
   </div>
 </div>
-                                                                                
+
+       

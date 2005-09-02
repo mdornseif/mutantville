@@ -1,15 +1,14 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UserTest < Test::Unit::TestCase
-  #fixtures :users
+class TagTest < Test::Unit::TestCase
+  fixtures :tags
 
   def setup
-    #@user = User.find(1)
+    @tag = Tag.find(1)
   end
 
   # Replace this with your real tests.
   def test_truth
-    #assert_kind_of User,  @user
-    true
+    assert_kind_of Tag,  @tag
   end
 end

@@ -1,6 +1,7 @@
 class LoginController < ApplicationController
   model   :login
-  layout  'scaffold'
+  layout  'root'
+  before_filter :login_required
 
   def login
     return if generate_blank
@@ -9,7 +10,8 @@ class LoginController < ApplicationController
       flash['notice'] = l(:login_login_succeeded)
       redirect_back_or_default :action => 'welcome'
     else
-      @login = @params['login']['login']
+      @login = Login.new()
+      @login.login = @params['login']['login']
       flash.now['message'] = l(:login_login_failed)
     end
   end
@@ -26,18 +28,21 @@ class LoginController < ApplicationController
           url = url_for(:action => 'welcome')
           url += "?login[id]=#{@login.id}&key=#{key}"
           LoginNotify.deliver_signup(@login, @params['login']['password'], url)
-          flash['notice'] = l(:login_signup_succeeded)
-          redirect_to :action => 'login'
+          flash['notice'] = "Thank you for signing up. We have sent an verification E-Mail, 
+                             but fro now you just can go on"
+          @session['login'] = @login
+          redirect_back_or_default :action => 'welcome'
         end
       end
     rescue
       flash.now['message'] = l(:login_confirmation_email_error)
+      raise if RAILS_ENV == 'development'
     end
   end  
   
   def logout
     @session['login'] = nil
-    redirect_to :action => 'login'
+    redirect_to "/"
   end
 
   def change_password
@@ -143,6 +148,10 @@ class LoginController < ApplicationController
     else
       redirect_to :action => 'welcome'
     end
+  end
+
+  def index
+    redirect_to :action => 'welcome'
   end
 
   def welcome

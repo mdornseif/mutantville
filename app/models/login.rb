@@ -1,9 +1,19 @@
 require 'digest/sha1'
 
 # this model expects a certain database layout and its based on the name/login pattern. 
+# and ist is somewhat involfed since it shadows the original user object
 class Login < ActiveRecord::Base
-
   attr_accessor :new_password
+  
+  validates_presence_of :login, :on => :create
+  validates_length_of :login, :within => 1..32, :on => :create
+  validates_uniqueness_of :login, :on => :create
+  # validates_uniqueness_of :email, :on => :create
+
+  validates_presence_of :password, :if => :validate_password?
+  validates_confirmation_of :password, :if => :validate_password?
+  validates_length_of :password, { :minimum => 2, :if => :validate_password? }
+  validates_length_of :password, { :maximum => 250, :if => :validate_password? }
   
   def initialize(attributes = nil)
     super
@@ -11,9 +21,9 @@ class Login < ActiveRecord::Base
   end
 
   def self.authenticate(login, pass)
-    u = find_first(["login = ? AND verified = 1 AND deleted = 0", login])
+    u = find_first(["login = ? AND deleted = 0", login])
     return nil if u.nil?
-    find_first(["login = ? AND salted_password = ? AND verified = 1", login, salted_password(u.salt, hashed(pass))])
+    find_first(["login = ? AND salted_password = ?", login, salted_password(u.salt, hashed(pass))])
   end
 
   def self.authenticate_by_token(id, token)
@@ -100,15 +110,5 @@ class Login < ActiveRecord::Base
   def self.salted_password(salt, hashed_password)
     hashed(salt + hashed_password)
   end
-
-  validates_presence_of :login, :on => :create
-  validates_length_of :login, :within => 3..40, :on => :create
-  validates_uniqueness_of :login, :on => :create
-  validates_uniqueness_of :email, :on => :create
-
-  validates_presence_of :password, :if => :validate_password?
-  validates_confirmation_of :password, :if => :validate_password?
-  validates_length_of :password, { :minimum => 5, :if => :validate_password? }
-  validates_length_of :password, { :maximum => 40, :if => :validate_password? }
 end
 
