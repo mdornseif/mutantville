@@ -6,7 +6,7 @@
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
   <td colspan="2" class="small" nowrap="nowrap"><span class="small">
-  <%= image.user %>
+  <%= image.created_by %>
   on <%= image.createtime %></span></td>
   </tr>
   <tr>
@@ -24,7 +24,7 @@
   </tr>
   </table>
 
-  <p><%= show_image(image.thumbnail) %></p>
+  <p><%= show_thumbnail(image) %></p>
 
   <p><%= image.alttext %></p>
   

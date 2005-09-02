@@ -1,4 +1,4 @@
-# found  at http://dema.ruby.com.br/files/taggable.rb
+# found at http://dema.ruby.com.br/files/taggable.rb
 module ActiveRecord
   module Acts #:nodoc:
     module Taggable #:nodoc:

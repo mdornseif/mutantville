@@ -1,8 +1,10 @@
-class User < ActiveRecord::Base
-  set_table_name "AV_USER" 
-  set_primary_key "USER_ID"
-  belongs_to :created_by, :class_name => "User", :foreign_key => "USER_F_USER_CREATOR"
-  belongs_to :modified_by, :class_name => "User", :foreign_key => "USER_F_USER_MODIFIER"
+class Layout < ActiveRecord::Base
+  set_table_name "AV_LAYOUT" 
+  set_primary_key "LAYOUT_ID"
+  # set_inheritance_column "TEXT_PROTOTYPE"
+  belongs_to :site, :foreign_key => "LAYOUT_F_SITE"
+  belongs_to :created_by, :class_name => "User", :foreign_key => "LAYOUT_F_USER_CREATOR"
+  belongs_to :modified_by, :class_name => "User", :foreign_key => "LAYOUT_F_USER_MODIFIER"
 
   def method_missing(method_id, *arguments)
     prefix = self.class.table_name[3..-1]

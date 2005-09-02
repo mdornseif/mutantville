@@ -7,11 +7,16 @@ module SiteHelper
   end
   
   def render_story_content(story)
-    story.content.to_s.gsub(/[\r\n][\n\r]/, "<br />\n")
+    story.rawcontent.to_s.gsub(/[\r\n][\n\r]/, "<br />\n")
   end
 
   def show_image(image)
-    return "<img src='#{STATICPATH}/#{image.site.alias}/images/#{image.filename}.#{image.filename}'" +
+    return "<img src='#{STATICPATH}/#{image.site.alias}/images/#{image.filename}.#{image.fileext}'" +
            " width='#{image.width}' height='#{image.height}'>"
+  end
+
+  def show_thumbnail(image)
+    return "<a href='#{STATICPATH}/#{image.site.alias}/images/#{image.filename}.#{image.fileext}'>" +
+           show_image(image.thumbnail) + '</a>'
   end
 end

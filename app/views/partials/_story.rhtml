@@ -1,5 +1,5 @@
 <div class="storyTitle"><%= story.title %></div>
-<div class="storyDate"><%= link_if_possible(story.author.name, story.author.url) %>,
+<div class="storyDate"><%= link_if_possible(story.created_by.name, story.created_by.url) %>,
 <%= story.createtime %></div>
 
 <div><%= render_story_content story %></div>

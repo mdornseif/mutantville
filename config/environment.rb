@@ -98,4 +98,4 @@ ActionMailer::Base.server_settings = {
 
 # this has to be changed for differnet tinstallations
 IDHOST = 'mutantville.id.23.nu'
-STATICPATH = '/static/images'
+STATICPATH = '/static/'
