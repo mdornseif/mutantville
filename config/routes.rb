@@ -11,22 +11,14 @@ ActionController::Routing::Routes.draw do |map|
   # map.connect '', :controller => "welcome"
 
   map.connect "", :controller => 'root', :action => 'index'
-<<<<<<< .mine
-  map.connect 'login/:action/:id', :controller => 'login'
-=======
   map.connect 'login/:action/:id', :controller => 'login'
   map.connect '/list', :controller => 'root', :action => 'list'
->>>>>>> .r759
   map.connect ":id/stories/:storyid", :controller => 'site', :action => 'show_story'
   map.connect ":id", :controller => 'site', :action => 'show'
-<<<<<<< .mine
-  map.connect ":id/:action", :controller => 'site'
-=======
   map.connect ":id/images", :controller => 'site', :action => 'list_image'
   map.connect ":id/images/:imageid/edit", :controller => 'site', :action => 'edit_image'
   map.connect ":id/images/:imageid/destroy", :controller => 'site', :action => 'destroy_image'
   map.connect ":id/:action", :controller => 'site'
->>>>>>> .r759
   # Allow downloading Web Service WSDL as a file with an extension
   # instead of a file named 'wsdl'
   map.connect ':controller/service.wsdl', :action => 'wsdl'
