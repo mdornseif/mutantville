@@ -1,0 +1,13 @@
+<div class="login_edit">
+  <%= form_input :hidden_field, 'form', :value => 'edit' %>
+
+  <table>
+    <%= form_input changeable(login, "firstname"), "firstname" %>
+    <%= form_input changeable(login, "lastname"), "lastname" %>
+    <%= form_input changeable(login, "login"), "login", :size => 30 %><br/>
+    <%= form_input changeable(login, "email"), "email" %>
+    <% if submit %>
+      <%= form_input :submit_button, login.new_record? ? 'signup' : 'change_settings', :class => 'two_columns' %>
+    <% end %>
+  </table>
+</div>

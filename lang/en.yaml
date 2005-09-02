@@ -1,0 +1,74 @@
+active_record_errors_inclusion: Inclusion error
+active_record_errors_inclusion: is not included in the list
+active_record_errors_invalid: is invalid
+active_record_errors_confirmation: doesn't match confirmation
+active_record_errors_accepted: must be accepted
+active_record_errors_empty: can't be empty
+active_record_errors_too_long: is too long (max is %d characters)
+active_record_errors_too_short: is too short (min is %d characters) 
+active_record_errors_wrong_length: is the wrong length (should be %d characters)
+active_record_errors_taken: has already been taken
+active_record_errors_not_a_number: is not a number
+
+# Controller
+login_login_succeeded: Login successful
+login_login_failed: Login unsuccessful
+login_signup_succeeded: Signup successful! Please check your registered email account to verify your account registration and continue with the login.
+login_confirmation_email_error: 'Error creating account: confirmation email not sent'
+login_updated_password: Your updated password has been emailed to %s.
+login_change_password_email_error: Your password could not be changed at this time. Please retry.
+login_enter_valid_email_address: Please enter a valid email address.
+login_email_address_not_found: We could not find a user with the email address %s.
+login_forgotten_password_emailed: Instructions on resetting your password have been emailed to %s.
+login_forgotten_password_email_error: Your password could not be emailed to %s.
+login_delete_emailed: Instructions on deleting your account have been emailed to %s.
+login_delete_email_error: The delete instructions were not sent. Please try again later.
+login_delete_finished: The account for %s was successfully deleted.
+login_restore_deleted_error: The account for %s was not restored. Please try the link again.
+login_account_verified: Account verified!
+
+# Views
+# Welcome
+login_welcome_head: Welcome
+login_now_logged_in_message: You are now logged into the system...
+login_redirect_message: Since you are here it's safe to assume the application never called store_location, otherwise you would have been redirected somewhere else after a successful login.
+login_welcome_logout_link: '&#171; logout'
+
+# Signup
+login_signup_head: Signup
+login_signup_button: Signup
+
+# Login
+login_login_head: Please login
+login_firstname_form: First name
+login_lastname_form: Last name
+login_login_form: Login ID
+login_email_form: Email
+login_password_form: Password
+login_password_confirmation_form: Password confirmation
+login_login_button: Login
+login_login_signup_link: Register for an account
+login_login_forgot_password_link: Forgot my password
+
+# Logout
+login_logoff_head: Logoff
+login_logged_off_message: You are now logged out of the system...
+login_logout_login_link: '&#171; login'
+
+# Change password
+login_change_password_head: Change Password
+login_change_message: Enter your new password in the fields below and click 'Change Password' to have a new password sent to your email inbox.
+login_change_password_button: Change password
+login_change_cancel_welcome_link: Cancel
+
+# Forgotten password
+login_forgot_password_head: Forgotten Password
+login_forgot_reset_message: Enter your email address in the field below and click 'Reset Password' to have instructions on how to retrieve your forgotten password emailed to you.
+login_forgot_password_logged_in: You are currently logged in. You may change your password now.
+login_forgot_reset_button: Submit request
+login_forgot_cancel_login_link: Cancel
+
+# Edit
+login_edit_head: Edit login
+login_change_settings_button: Change settings
+login_delete_account_button: Delete account
