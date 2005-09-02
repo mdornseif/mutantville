@@ -85,6 +85,20 @@ Controllers = Dependencies::LoadingModule.root(
 
 require_dependency 'taggable'
 
+<<<<<<< .mine
+require 'environments/localization_environment'
+require 'localization'
+Localization::load_localized_strings
+require 'environments/login_environment'
+
+ActionMailer::Base.server_settings = {
+  :address => "smtp-mx.mac.com",
+  :port => 25,
+  :domain => 'b.23.nu'
+}
+
+# this has to be changed for differnet tinstallations
+IDHOST = 'mutantville.id.23.nu'=======
 require 'environments/localization_environment'
 require 'localization'
 Localization::load_localized_strings
@@ -99,3 +113,4 @@ ActionMailer::Base.server_settings = {
 # this has to be changed for differnet tinstallations
 IDHOST = 'mutantville.id.23.nu'
 STATICPATH = '/static/images'
+>>>>>>> .r759
