@@ -1,0 +1,18 @@
+xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.rss "version"=>"2.0", "xmlns:dc"=>"http://purl.org/dc/elements/1.1/" do
+  xml.channel do
+    xml.title @site.title
+    xml.link server_url_for(:controller => "articles")
+    xml.description @site.tagline
+
+    for item in @stories
+      xml.item do
+        xml.title item.title_or_text
+        xml.description render_story_content(item)
+        xml.pubDate item.created_on.xmlschema
+        xml.guid "tag:#{IDHOST},2005:Story-#{item.id}"
+        xml.link server_url_for(:action => 'show_story', :storyid => item.id)
+      end
+    end
+  end
+end
