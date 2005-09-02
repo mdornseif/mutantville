@@ -1,0 +1,31 @@
+<% for image in @images -%>
+
+  <p>To insert this image into a story, comment or skin copy/paste the following code: 
+  <code>% image.code %</code></p>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  <td colspan="2" class="small" nowrap="nowrap"><span class="small">
+  <%= image.user %>
+  on <%= image.createtime %></span></td>
+  </tr>
+  <tr>
+  <td valign="top">
+  <div class="storyTitle"><%= image.alias %></div>
+  <div class="small">(<%= image.fileext %>, 
+  <%= image.width %>&times;<%= image.height %> pixels, 
+  <%= image.filesize %>)</div>
+  </td>
+  <td align="right" class="small" valign="top" nowrap="nowrap">
+    ...&nbsp; <%= link_to "edit", :action => 'edit_image', :imageid => image.alias %><br />
+    ...&nbsp; <%= link_to "delete", :action => 'destroy_image', :imageid => image.alias, 
+                  :confirm => "Are you sure?" %>
+    </td>
+  </tr>
+  </table>
+
+  <p><%= show_image(image.thumbnail) %></p>
+
+  <p><%= image.alttext %></p>
+  
+<% end -%>

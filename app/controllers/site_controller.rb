@@ -8,8 +8,17 @@ class SiteController < ApplicationController
 
   def show
     @site = Site.find_by_SITE_ALIAS(@params[:id])
-    @stories = Story.find(:all, :conditions => ['TEXT_F_SITE = ? AND TEXT_ISONLINE > 1', @site.id], 
-                          :limit => 23, :order => 'TEXT_MODIFYTIME DESC')
+    if @params[:day]
+      @stories = Story.find(:all, :conditions => ['TEXT_F_SITE = ? AND TEXT_ISONLINE > 1 AND TEXT_DAY = ?',
+                                                  @site.id, @params[:day]],
+                            :order => 'TEXT_MODIFYTIME DESC')
+      @stories += Story.find(:all, :conditions => ['TEXT_F_SITE = ? AND TEXT_ISONLINE > 1 AND TEXT_DAY < ?',
+                                                   @site.id, @params[:day]],
+                             :limit => [0, 23-@stories.length].max, :order => 'TEXT_MODIFYTIME DESC')
+    else
+      @stories = Story.find(:all, :conditions => ['TEXT_F_SITE = ? AND TEXT_ISONLINE > 1', @site.id], 
+                            :limit => 23, :order => 'TEXT_MODIFYTIME DESC')
+    end
   end
 
   def atom
@@ -23,17 +32,28 @@ class SiteController < ApplicationController
   end
 
   def show_story
-    if @params[:id] != @params[:id].to_i.to_s
-      @site = Site.find_by_SITE_ALIAS(@params[:id])
-    else
-      @site = Site.find(@params[:id])
-    end
+    @site = Site.find_by_SITE_ALIAS(@params[:id])
     @story = Story.find(@params[:storyid])
     if @story.site != @site
       flash[:notice] = 'Story not found'
       redirect_to :action  => 'show'
     end
   end
+  
+  def list_image
+    @site = Site.find_by_SITE_ALIAS(@params[:id])
+    @images = Image.find(:all, :conditions => ['IMAGE_F_SITE = ? AND IMAGE_F_IMAGE_THUMB > 0', @site.id])
+  end
+  
+  def show_image
+    @site = Site.find_by_SITE_ALIAS(@params[:id])
+    @image = Story.find(@params[:imageid])
+    if @image.site != @site
+      flash[:notice] = 'Image not found'
+      redirect_to :action  => 'show'
+    end
+  end
+  
   
   def edit
   end

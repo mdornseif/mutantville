@@ -30,11 +30,11 @@ class LoginTest < Test::Unit::TestCase
     u = Login.new    
     u.login = "nonbob"
 
-    u.change_password("tiny")
+    u.change_password("")
     assert !u.save     
     assert u.errors.invalid?('password')
 
-    u.change_password("hugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehuge")
+    u.change_password("hugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehugehuge" * 10)
     assert !u.save     
     assert u.errors.invalid?('password')
         
@@ -53,7 +53,7 @@ class LoginTest < Test::Unit::TestCase
     u = Login.new  
     u.change_password("bobs_secure_password")
 
-    u.login = "x"
+    u.login = ""
     assert !u.save     
     assert u.errors.invalid?('login')
     

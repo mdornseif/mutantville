@@ -29,7 +29,7 @@ class LoginController < ApplicationController
           url += "?login[id]=#{@login.id}&key=#{key}"
           LoginNotify.deliver_signup(@login, @params['login']['password'], url)
           flash['notice'] = "Thank you for signing up. We have sent an verification E-Mail, 
-                             but fro now you just can go on"
+                             but for now you just can go on"
           @session['login'] = @login
           redirect_back_or_default :action => 'welcome'
         end

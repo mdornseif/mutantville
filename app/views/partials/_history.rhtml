@@ -1,5 +1,5 @@
 <% for writing in writings %>
- <%= if writing.type.to_s == 'Story'
+ <%= if writing.class.to_s == 'Story'
        link_to writing.title_or_text, :action => 'show_story', :storyid => writing 
      else
        link_to(writing.title_or_text, :action => 'show_story', :storyid => writing.story, "#comment" + writing.id.to_s => true)

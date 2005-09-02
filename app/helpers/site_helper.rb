@@ -9,4 +9,9 @@ module SiteHelper
   def render_story_content(story)
     story.content.to_s.gsub(/[\r\n][\n\r]/, "<br />\n")
   end
+
+  def show_image(image)
+    return "<img src='#{STATICPATH}/#{image.site.alias}/images/#{image.filename}.#{image.filename}'" +
+           " width='#{image.width}' height='#{image.height}'>"
+  end
 end
