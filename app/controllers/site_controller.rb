@@ -22,6 +22,7 @@ class SiteController < ApplicationController
   end
 
   def atom
+    @headers["Content-Type"] = "application/xml"
     @site = Site.find_by_SITE_ALIAS(@params[:id])
     @stories = Story.find(:all, :conditions => ['TEXT_F_SITE = ? AND TEXT_ISONLINE > 0', @site.id], 
                           :limit => 23, :order => 'TEXT_MODIFYTIME DESC')
@@ -29,6 +30,12 @@ class SiteController < ApplicationController
 
   def rss
     atom
+  end
+  
+  def stylesheet
+    @headers["Content-Type"] = "text/css" 
+    @site = Site.find_by_SITE_ALIAS(@params[:id])
+    render_text @site.layout.get_skin('Site','style').source
   end
 
   def show_story

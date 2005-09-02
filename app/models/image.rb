@@ -15,25 +15,6 @@ class BaseImage < ActiveRecord::Base
       super
     end
   end
-
-  def alias 
-    read_attribute('IMAGE_ALIAS') end
-  def alttext
-    read_attribute('IMAGE_ALTTEXT') end
-  def fileext
-    read_attribute('IMAGE_FILEEXT') end
-  def filename
-    read_attribute('IMAGE_FILENAME') end
-  def width
-    read_attribute('IMAGE_WIDTH') end
-  def height
-    read_attribute('IMAGE_HEIGTH') end
-  def filesize
-    read_attribute('IMAGE_FILESIZE') end
-  def createtime
-    read_attribute('IMAGE_CREATETIME') end
-  def creator
-    read_attribute('IMAGE_F_USER_CREATOR') end
 end
 
 class Layoutimage < BaseImage

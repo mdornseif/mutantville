@@ -28,4 +28,8 @@ class Site < ActiveRecord::Base
   def tagline
     "FIXME"
   end
+
+  def stylesheet
+    
+  end
 end
