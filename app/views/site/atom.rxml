@@ -13,7 +13,7 @@ xml.feed "xmlns"=>"http://www.w3.org/2005/Atom", "xmlns:dc" => "http://purl.org/
   for item in @stories
     xml.entry do 
       xml.id "tag:#{IDHOST},2005:Story-#{item.id}"
-      xml.published item.created_on.xmlschema
+      xml.published item.created_at.xmlschema
       xml.updated item.updated_on.xmlschema
       xml.title item.title_or_text
       #xml.author do  

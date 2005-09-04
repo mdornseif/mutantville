@@ -10,4 +10,6 @@ class ApplicationController < ActionController::Base
 
   helper :Login
   model  :Login
+  
+  private
 end

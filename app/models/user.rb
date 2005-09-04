@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
     prefix = self.class.table_name[3..-1]
     columnname = prefix + '_' + method_id.to_s.upcase
     if attributes.include? columnname then return attributes[columnname]
-    elsif method_id == :created_on then return [prefix + '_CREATETIME']
-    elsif method_id == :modified_on then return [prefix + '_MODIFYTIME']
+    elsif method_id == :created_at then return [prefix + '_CREATETIME']
+    elsif method_id == :modidied_at then return [prefix + '_MODIFYTIME']
     else
       super
     end
