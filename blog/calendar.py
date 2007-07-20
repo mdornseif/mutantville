@@ -36,15 +36,16 @@ def first_of_next_month(date):
 def create_calendar(date, stories):
     year, month, day = date.timetuple()[0:3]
     first_day = first_of_month(date)
+    last_day = last_of_month(date)
 
     #pre = (7 - first_day.weekday()) % 7
     pre = first_day.weekday()
     days = days_of_month(first_day)
     weeks = int(ceil(days / 7.0))
-    
+    post = 6 - last_day.weekday()
     daycnt = 1
     
-    cal = ["<table>"]
+    cal = ['<table border="1">']
     
     for week in range(weeks):
         cal.append("<tr>")
@@ -59,6 +60,18 @@ def create_calendar(date, stories):
                 cal.append("<td>%s</td>" % (x))
                 daycnt += 1
         cal.append("</tr>")
+    cal.append("<tr>")
+    while daycnt <= days:
+        if stories.has_key(daycnt):
+            x = '<a href="%s">%d</a>' % (stories[daycnt].get_absolute_url(), daycnt)
+        else:
+            x = '%d' % (daycnt)
+        cal.append("<td>%s</td>" % (x))
+        daycnt += 1
+    for i in range(post):
+        cal.append("<td>&nbsp;</td>")
+        
+    cal.append("</tr>")
     cal.append("</table>")
     return "".join(cal)
 
