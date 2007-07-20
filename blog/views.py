@@ -5,6 +5,7 @@ from django import newforms #as forms
 from blog.models import *
 
 import datetime
+import calendar
 
 # Indexseite
 def root_index(request):
@@ -214,10 +215,15 @@ def tag_list(request, blogname):
                               context_instance=template.RequestContext(request))
     
 
-def calendar(request):
+def rcal(request):
+    # XXX
     today = datetime.date.today()
-    first_of_month = calendar.first_of_month(today)
-    last_of_month = calendar.last_of_month(today)
-    story_list = Stories.objects.filter(pub_date__gt=first_of_month, pub_date__lt=last_of_month)
-    calendar = calendar.create_caledar(today, story_list)
-    return render_to_response('blog/calendar.html', {'calendar': calendar})
+    a = calendar.first_of_month(today)
+    b = calendar.first_of_next_month(today)
+    story_dict = {}
+    for story in Story.objects.filter(pub_date__gt=a, pub_date__lt=b).order_by('pub_date'):
+        day = story.pub_date.day
+        if not story_dict.has_key(day):
+            story_dict[day] = story
+    cal = calendar.create_calendar(today, story_dict)
+    return render_to_response('blog/calendar.html', {'calendar': cal})

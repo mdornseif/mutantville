@@ -3,6 +3,8 @@
 import datetime
 from math import ceil
 
+__all__ = ['is_leapyear', 'days_of_month', 'first_of_month', 'last_of_month', 'first_of_next_month', 'create_calendar']
+
 def is_leapyear(year):
     return ((year % 4 == 0) and ((year % 100 != 0) or (y % 400 == 0)))
 
@@ -21,15 +23,19 @@ def days_of_month(date):
         
     return days
 
+
 def first_of_month(date):
-    return datetime.date(year, month, 1)
+    return datetime.date(date.year, date.month, 1)
 
 def last_of_month(date):
-    return datetime.date(year, month, days_of_month(date))
+    return datetime.date(date.year, date.month, days_of_month(date))
+
+def first_of_next_month(date):
+    return datetime.date.fromordinal(last_of_month(date).toordinal() + 1)
 
 def create_calendar(date, stories):
     year, month, day = date.timetuple()[0:3]
-    first_day = datetime.date(year, month, 1)
+    first_day = first_of_month(date)
 
     #pre = (7 - first_day.weekday()) % 7
     pre = first_day.weekday()
