@@ -60,17 +60,18 @@ def create_calendar(date, stories):
                 cal.append("<td>%s</td>" % (x))
                 daycnt += 1
         cal.append("</tr>")
+    
     cal.append("<tr>")
-    while daycnt <= days:
-        if stories.has_key(daycnt):
-            x = '<a href="%s">%d</a>' % (stories[daycnt].get_absolute_url(), daycnt)
+    for day in range(7):
+        if daycnt <= days:
+            if stories.has_key(daycnt):
+                x = '<a href="%s">%d</a>' % (stories[daycnt].get_absolute_url(), daycnt)
+            else:
+                x = '%d' % (daycnt)
+            cal.append("<td>%s</td>" % (x))
+            daycnt += 1
         else:
-            x = '%d' % (daycnt)
-        cal.append("<td>%s</td>" % (x))
-        daycnt += 1
-    for i in range(post):
-        cal.append("<td>&nbsp;</td>")
-        
+            cal.append("<td>&nbsp;</td>")
     cal.append("</tr>")
     cal.append("</table>")
     return "".join(cal)
