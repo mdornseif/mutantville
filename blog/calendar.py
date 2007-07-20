@@ -33,12 +33,11 @@ def last_of_month(date):
 def first_of_next_month(date):
     return datetime.date.fromordinal(last_of_month(date).toordinal() + 1)
 
-def create_calendar(date, stories):
+def create_calendar(date, stories, prev_month=None, next_month=None):
     year, month, day = date.timetuple()[0:3]
     first_day = first_of_month(date)
     last_day = last_of_month(date)
 
-    #pre = (7 - first_day.weekday()) % 7
     pre = first_day.weekday()
     days = days_of_month(first_day)
     weeks = int(ceil(days / 7.0))
@@ -46,6 +45,12 @@ def create_calendar(date, stories):
     daycnt = 1
     
     cal = ['<table border="1">']
+    cal.append('<caption>%s</caption>' % (date.strftime('%B %Y')))
+    
+    cal.append('<tr>')
+    for day in range(1, 8):
+        cal.append("<th>%s</th>" % (datetime.date(2001, 1, day).strftime("%a")))
+    cal.append('</tr>')
     
     for week in range(weeks):
         cal.append("<tr>")
@@ -72,7 +77,20 @@ def create_calendar(date, stories):
             daycnt += 1
         else:
             cal.append("<td>&nbsp;</td>")
-    cal.append("</tr>")
+    cal.append('</tr>')
+    
+    cal.append('<tr>')
+    if prev_month:
+        cal.append('<td colspan="3">%s</td>' % (prev_month))
+    else:
+        cal.append('<td colspan="3">&nbsp;</td>')
+    cal.append('<td>&nbsp;</td>')
+    if next_month:
+        cal.append('<td colspan="3">%s</td>' % (next_month))
+    else:
+        cal.append('<td colspan="3">&nbsp;</td>')
+    cal.append('</tr>')
+    
     cal.append("</table>")
     return "".join(cal)
 

@@ -220,10 +220,24 @@ def rcal(request):
     today = datetime.date.today()
     a = calendar.first_of_month(today)
     b = calendar.first_of_next_month(today)
+    
     story_dict = {}
     for story in Story.objects.filter(pub_date__gt=a, pub_date__lt=b).order_by('pub_date'):
         day = story.pub_date.day
         if not story_dict.has_key(day):
             story_dict[day] = story
-    cal = calendar.create_calendar(today, story_dict)
+
+    try:
+        prev_month_stories = Story.objects.filter(pub_date__lt=a).order_by('-pub_date')
+        prev_month = '<a href="bla">%s</a>' % (prev_month_stories[0].pub_date.strftime('%B'))
+    except IndexError:
+        prev_month = None
+        
+    try:
+        next_month_stories = Story.objects.filter(pub_date__gt=b).order_by('pub_date')
+        next_month = '<a href="bla">%s</a>' % (next_month_stories[0].pub_date.strftime('%B'))
+    except IndexError:
+        next_month = None
+
+    cal = calendar.create_calendar(today, story_dict, prev_month=prev_month, next_month=next_month)
     return render_to_response('blog/calendar.html', {'calendar': cal})
