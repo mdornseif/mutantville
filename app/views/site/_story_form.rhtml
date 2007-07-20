@@ -1,0 +1,31 @@
+<%= error_messages_for 'story' %>
+
+<!--[form:news_item]-->
+<p><label for="story_title">Titel</label><br/>
+<%= text_field 'story', 'title', :size => '50' %></p>
+
+<p><label for="story_rawcontent">Text</label><br/>
+<%= text_area 'story', 'rawcontent', :cols => '50', :rows => '15' %></p>
+
+<table>
+<tr>
+<td><fieldset><legend class="small">Options</legend>
+<p>
+<p><%= check_box('story', 'isonline', {}, '2', '1') %>&nbsp;Show this story on the front page</p>
+
+<!--
+<p>This story is editable by<br />
+<span class="small"><input value="0" checked="checked" type="radio" name="editableby" />&nbsp;the author&nbsp;<input value="1" type="radio" name="editableby" />&nbsp;all contributors&nbsp;<input value="2" type="radio" name="editableby" />&nbsp;all subscribers&nbsp;</span></p>
+-->
+
+<p><%= check_box('story', 'hasdiscussions') %>&nbsp;Allow comments</p></fieldset></td>
+
+</tr>
+<tr>
+<td class="small">Created by <a href="http://md.hudora.de/">mdornseif</a>, last modified&nbsp;by&nbsp;<a href="http://md.hudora.de/">mdornseif</a>&nbsp;on&nbsp;2006.02.26, 20:38</td>
+</tr>
+<tr>
+<td nowrap="nowrap"><br /><input value="Publish" type="submit" name="publish" />&nbsp;<input value="Save offline" type="submit" name="save" />&nbsp;<input value="Cancel" type="submit" name="cancel" /></td>
+</tr>
+</table>
+

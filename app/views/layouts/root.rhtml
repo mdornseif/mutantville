@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+ <title><%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'antville' %>
+</head>
+<body>
+
+<table class="main" cellspacing="0" cellpadding="0">
+<tr>
+<td class="header"><a href="/"><img width="404" height="53" title="blogs.23.nu" border="0" src="/static/layouts/default/big.gif" alt="antville" /></a></td>
+</tr>
+</table>
+
+<table class="main">
+<tr>
+<td class="center">
+
+<div class="message" style="color: green"><%= flash[:notice] %></div>
+
+<%= @content_for_layout %>
+
+</td>
+
+<td class="right">
+<div class="box">
+<%= Time.now.to_s %><br />
+
+<%= render_partial 'partials/loginstatus' %>
+
+</div>
+
+<div class="boxheader">menu</div>
+<div class="box">
+...&nbsp;<a href="http://blogs.23.nu/">blogs.23.nu home</a><br />
+...&nbsp;<%= link_to "create a new site", :controller => 'site', :action => 'new' %>
+</div>
+
+
+<div class="boxline">&nbsp;</div>
+<div class="box">
+<%= Site.count_publicsites %> public sites... <%= link_to "list", :controller => 'site', :action => 'list' %>
+</div>
+
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

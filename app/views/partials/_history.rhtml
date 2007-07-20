@@ -1,0 +1,8 @@
+<% for writing in writings %>
+ <%= if writing.class.to_s == 'Story'
+       link_to writing.title_or_text, :action => 'story_show', :storyid => writing 
+     else
+       link_to(writing.title_or_text, :action => 'story_show', :storyid => writing.story, "#comment" + writing.id.to_s => true)
+     end %><br />
+     <%= writing.createtime %> <br />
+<% end %>

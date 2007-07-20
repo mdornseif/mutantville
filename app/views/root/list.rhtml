@@ -1,0 +1,7 @@
+This is the complete list of public sites hosted here, most recent created sites first.
+
+<ul>
+  <% for site in @sites -%>
+  <li><%= link_to site.title, :controller => 'site', :action => 'show', :id => site.alias %></li>
+  <% end -%>
+</ul>

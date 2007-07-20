@@ -1,0 +1,6 @@
+<h1>Edit Story</h1>
+
+<%= start_form_tag :action => 'story_update', :storyid => @story.id %>
+  <%= render_partial "story_form" %>
+  <%= submit_tag "Save" %>
+<%= end_form_tag %>

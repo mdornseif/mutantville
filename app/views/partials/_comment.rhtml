@@ -1,0 +1,10 @@
+<div id="<%= comment.id %>">
+<div class="storyTitle"><%= comment.title %></div>
+<div class="storyDate"><%= link_if_possible(comment.created_by.name, comment.created_by.url) %>,
+<%= comment.created_at %></div>
+
+<div><%= h(comment.rawcontent).gsub!(/[\r\n][\n\r]/, "<br />\n")  %></div>
+<p class="small">
+<%= if @may_edit then "&nbsp;&nbsp;...&nbsp;" + link_to("edit", :action => 'edit_comment', :id => story) + "&nbsp;&nbsp;...&nbsp;" + link_to("delete", :action => 'delete_comment', :id => story) end %>
+</p>
+</div>

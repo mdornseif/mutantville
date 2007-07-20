@@ -1,0 +1,4 @@
+{% for change in recent_changes %}
+   <a href="{{ change.url }}">{{ change.title | truncate: 30 }}</a><br />
+  {{ change.updated_at }} {{ change.created_by }} <br />
+{% endfor %}

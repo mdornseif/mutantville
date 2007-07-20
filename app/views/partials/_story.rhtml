@@ -1,0 +1,14 @@
+<div class="storyTitle"><%= story.title %></div>
+<div class="storyDate"><%= link_if_possible(story.created_by.name, story.created_by.url) if story.created_by %>,
+<%= story.created_at %></div>
+
+<div><%= render_story_content story %></div>
+<p class="small">
+...&nbsp;<%= link_to "link", :action => 'story_show', :storyid => story %>
+<%= if story.show_comments? then "(" + story.comments_count.to_s + " comments)" end %>
+...&nbsp;<%= link_to "edit", :action => 'story_edit', :storyid => story.id %><br />
+<%#= if story.may_comment then "&nbsp;&nbsp;...&nbsp;" + link_to("comment", :action => 'new_comment', :id => story) end %>
+</p>
+<br />
+
+<%= debug story %>

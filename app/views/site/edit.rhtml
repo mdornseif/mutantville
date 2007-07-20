@@ -1,0 +1,127 @@
+<h1>Editing site</h1>
+
+<%= start_form_tag :action => 'update', :sitealias => @site.alias %>
+<%= error_messages_for 'site' %>
+
+<table border="0" cellspacing="0" cellpadding="2">
+<tr>
+<td colspan="2" nowrap="nowrap"><strong><a name="general">General</a></strong></td>
+</tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_title">Title</label></td>
+<td nowrap="nowrap"><%= text_field 'site', 'title'  %></td></tr>
+
+
+<tr><td class="small" nowrap="nowrap"><label for="site_alias">Alias</label></td>
+<td nowrap="nowrap">
+<%= @site.alias %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_email">Email</label></td>
+<td><%= text_field 'site', 'email'  %><br />
+<span class="small">This e-mail address will be used for sending confirmation mails, i.e. when a user registers or signs up a site.</span>
+</td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_SHOWDAYS">Days on front page</label></td>
+<td>
+<%= text_field 'site', 'SITE_SHOWDAYS'  %>
+<br />
+<span class='small'>Show this many days on frontpage (limited to <%= MAXSTORIESONPAGE %> entries)</span>
+</td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_SHOWARCHIVE">Site showarchive</label></td>
+<td nowrap="nowrap">
+<select id="site_SITE_SHOWARCHIVE" name="site[SITE_SHOWARCHIVE]"><option value="false">False</option><option value="true">True</option></select></p>
+
+
+<tr><td class="small" nowrap="nowrap"><label for="site_isonline">Public?</label></td>
+<td>
+<select id="site_isonline" name="site[isonline]"><option value="false">False</option><option value="true">True</option></select>
+<br />
+<span class="small">Public sites can be accessed by everyone, non-public 
+sites can be accessed only by registered subscribers of this site.</span>
+</td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_ishidden">Hidden?</label></td>
+<td>
+<select id="site_ishidden" name="site[ishidden]"><option value="false">False</option><option value="true">True</option></select>
+<br />
+<span class="small">Hidden sites do not appear on the global index and are added to the robots.txt files to bar searchengines from accessing it.</span>
+</td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_hasdiscussions">Allow comments</label></td>
+<td>
+<select id="site_hasdiscussions" name="site[hasdiscussions]"><option value="false">False</option><option value="true">True</option></select></p>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_usermaycontrib">Allow contributions</label></td>
+<td>
+<select id="site_usermaycontrib" name="site[usermaycontrib]"><option value="false">False</option><option value="true">True</option></select>
+<br />
+<span class="small">Enabling this option means that every registered mutantvill user may create stories.</span></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_enableping">Enableping</label></td>
+<td>
+<select id="site_enableping" name="site[enableping]"><option value="false">False</option><option value="true">True</option></select>
+<br />
+<span class="small">If this option is enabled <a href="http://pingomatic.com/">ping-o-matic</a> will be notified when your site is updated.</span></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_BGCOLOR">Site bgcolor</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_BGCOLOR'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_TEXTFONT">Site textfont</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_TEXTFONT'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_TEXTCOLOR">Site textcolor</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_TEXTCOLOR'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_TEXTSIZE">Site textsize</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_TEXTSIZE'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_LINKCOLOR">Site linkcolor</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_LINKCOLOR'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_ALINKCOLOR">Site alinkcolor</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_ALINKCOLOR'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_VLINKCOLOR">Site vlinkcolor</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_VLINKCOLOR'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_TITLEFONT">Site titlefont</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_TITLEFONT'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_TITLECOLOR">Site titlecolor</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_TITLECOLOR'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_TITLESIZE">Site titlesize</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_TITLESIZE'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_SMALLFONT">Site smallfont</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_SMALLFONT'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_SMALLCOLOR">Site smallcolor</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_SMALLCOLOR'  %></td></tr>
+
+<tr><td class="small" nowrap="nowrap"><label for="site_SITE_SMALLSIZE">Site smallsize</label></td>
+<td nowrap="nowrap">
+<%= text_field 'site', 'SITE_SMALLSIZE'  %></td></tr>
+
+<!--[eoform:site]-->
+
+</table>
+  <%= submit_tag 'Save' %>
+
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'show', :id => @site %> |
+<%= link_to 'Back', :action => 'list' %>

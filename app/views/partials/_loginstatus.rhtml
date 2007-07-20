@@ -1,0 +1,8 @@
+<% if not @session['login'] %>
+You're not logged in ... <%= link_to "login/signup", :controller => 'login', :action => 'login' %></a>
+<% else %>
+Logged in as <%= @session['login'].login %><br />
+...&nbsp;
+<%= link_to "edit your profile", :controller => 'login', :action => 'edit', :id => @session['login'].id %><br />
+...&nbsp;<%= link_to "logout", :controller => 'login', :action => 'logout'  %>
+<% end %>
