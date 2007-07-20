@@ -1,0 +1,45 @@
+{% extends "blog/base.html" %}
+{% load blogtools %}
+
+{% block headers %}<link rel="alternate" type="application/atom+xml" href="{{ blog.get_absolute_url }}stories/atom.xml">{% endblock %}
+
+{% block heading %}
+<table class="main" cellspacing="0" cellpadding="0">
+<tr>
+<td class="header">{% link_to blog %}</td>
+</tr>
+</table>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block sidebar %}
+<div class="box">
+Online for %= @site.age %> days<br />
+Last update: %= @site.lastupdate %>
+</div>
+
+<div class="boxheader">menu</div>
+<div class="box">
+...&nbsp;<a href="{{ blog.get_absolute_url }}stories/">stories</a><br />
+...&nbsp;<a href="{{ blog.get_absolute_url }}stories/add/">new story</a><br />
+...&nbsp;%= link_to "preferences", :controller => 'site', :action => 'edit' %><br />
+...&nbsp;<a href="/">blogs.23.nu home</a>
+</div>
+
+<!--
+<div class="boxheader">search</div>
+<div class="box">% site.skin name="searchbox" %></div>
+-->
+
+<div class="boxheader">calendar</div>
+<div class="box">
+  Hier entsteht ein Kalendar
+</div>
+
+<div class="boxheader">recent updates</div>
+<div class="box">%= render_partial "recent_changes" %></div>
+
+<div class="boxline"></div><br />
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "blog/base_blog.html" %}
+
+{% block content %}
+<h1>{{ story.title }}</h1>
+{{ story.creator }} wrote on {{ story.pub_date }}
+<pre>
+{{ story.content }}
+</pre>
+
+<form action="." method="POST">
+	<input name="action" type="submit" value="DELETE">
+	<input name="action" type="submit" value="KEEP">
+</form>
+
+<a href="{{ blog.get_absolute_url }}">Home</a>
+
+{% endblock %}

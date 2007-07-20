@@ -1,0 +1,34 @@
+{% extends "blog/base.html" %}
+{% block title %}Login {% endblock %}
+
+{% block content %}
+{% if form.has_errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<span class="message">Please enter your username and password.</span><br /><br />
+<form method="post" action=".">
+<table border="0" cellspacing="0" cellpadding="3">
+<tr>
+<td class="small" nowrap="nowrap">Username:</td>
+<td nowrap="nowrap">{{ form.username }}</td>
+<td rowspan="4">&nbsp;</td>
+<td class="small"><a href="/members/register">Not registered yet?</a></td>
+</tr>
+<tr>
+<td class="small" nowrap="nowrap">Password:</td>
+<td nowrap="nowrap">{{ form.password }}</td>
+<td class="small"><a href="/members/sendpwd">Forgot your password?</a></td>
+</tr>
+<tr>
+<td nowrap="nowrap">&nbsp;</td>
+<td colspan="2" class="small" nowrap="nowrap"><!-- <input type="checkbox" tabindex="3" name="remember" />Remember me--> &nbsp;</td>
+</tr>
+<tr>
+<td nowrap="nowrap">&nbsp;</td>
+<td colspan="2" nowrap="nowrap"><br /><input value="Login" tabindex="4" type="submit" name="login" /></td>
+</tr>
+</table>
+</form>
+
+{% endblock %}

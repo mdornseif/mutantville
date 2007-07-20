@@ -1,0 +1,12 @@
+{% extends "blog/base_root.html" %}
+{% load blogtools %}
+
+{% block content %}
+This is the complete list of public sites hosted here, most recent created sites first.
+
+<ul>
+  {% for blog in blogs %}
+  <li>{% link_to blog %}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

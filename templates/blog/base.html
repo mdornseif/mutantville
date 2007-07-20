@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+  <title>{% block title %}{{ title|escape }}{% endblock %}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="/media/css/antville.css" />
+  {% block headers %}{% endblock %}
+</head>
+<body>
+
+{% block heading %}
+<table class="main" cellspacing="0" cellpadding="0">
+<tr>
+<td class="header"><a href="/"><img width="404" height="53" title="blogs.23.nu" border="0" src="/media/layout/big.gif" alt="antville" /></a></td>
+</tr>
+</table>
+{% endblock %}
+
+<table class="main">
+<tr>
+<td class="center">
+
+{% if messages %}
+  <div class="message" style="color: green">        
+    <ul class="messagelist">{% for message in messages %}<li>{{ message|escape }}</li>{% endfor %}</ul>
+  </div>
+{% endif %}
+
+{% block content %}
+{% endblock %}
+</td>
+
+<td class="right">
+
+{%  block loginstatus %}
+<div class="box">
+{% if not user.is_anonymous %}
+Logged in as {{ user.username }}<br />
+...&nbsp; <a href="/change_password/">change password</a><br />
+...&nbsp; <a href="/logout/">logout</a><br />
+{% else %}
+You're not logged in ... <a href="/login/">login</a><br /></a>
+{% endif %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+</td>
+</tr>
+</table>
+</body>
+</html>

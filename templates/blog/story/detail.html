@@ -1,0 +1,36 @@
+{% extends "blog/base_blog.html" %}
+{% block content %}
+
+{% include "blog/include/story.html" %}
+
+<p>
+{% if story.allow_comments %}
+<a href="{{ story.get_absolute_url }}comment">comment...</a>
+{% endif %}
+</p>
+
+
+{% if story.comment_set.count %}
+<p><a name="comments"></a></p>
+
+{% for comment in story.comment_set.all %}
+
+<a name="{{ comment.id }}"></a><div class="listSeparator">&nbsp;</div>
+<div class="storyDate">
+ {{ comment.creator }}, {{ comment.pub_date }}
+</div>
+
+<div class="title">
+{{ comment.title }}
+</div>
+<div>
+{{ comment.content }}
+</div>
+
+<p class="small">
+ ...&nbsp;<a href="{{ comment.get_absolute_url }}">link</a>&nbsp;&nbsp; 
+</p>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

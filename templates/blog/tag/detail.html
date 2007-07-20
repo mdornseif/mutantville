@@ -1,0 +1,14 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+Tag {{ tag.name }}
+{% endblock %}
+
+{% block content %}
+
+Stories for tag {{ tag.name }}
+
+{% for story in tag.story_set.all %}
+<div><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></div>
+{% endfor %}
+{% endblock %}

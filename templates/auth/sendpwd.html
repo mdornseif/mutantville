@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+{% block title %}Reset Password{% endblock %}
+
+{% block content %}
+{% if form.has_errors %}
+<span class="message">Sorry, but this is an unregistered e-mail address. Maybe a typo?</span><br /><br />
+{% endif %}
+
+<p>Please enter the e-mail address you most likely used back then when you registered yourself here. An e-mail containing all accounts that were registered with this e-mail address will be sent back to this address.</p>
+
+<form method="post" action=".">
+<table border="0" cellspacing="0" cellpadding="3">
+<tr>
+<td class="small" nowrap="nowrap">e-mail:</td>
+<td nowrap="nowrap"><input value="" type="text" size="20" name="email" /></td>
+</tr>
+<tr>
+<td nowrap="nowrap">&nbsp;</td>
+<td nowrap="nowrap"><input value="Send" type="submit" name="send" />&nbsp;<input value="Cancel" type="submit" name="cancel" /></td>
+</tr>
+</table>
+</form>
+
+{% endblock %}

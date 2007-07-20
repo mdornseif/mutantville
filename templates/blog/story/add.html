@@ -1,0 +1,20 @@
+{% extends "blog/base_blog.html" %}
+
+{% block content %}
+
+{% if form.has_errors %}
+<h2>Please correct the following error{{ form.error_dict|pluralize }}:</h2>
+{% endif %}
+
+<form action="." method="POST">
+
+<h1> errors</h1>
+<div> {{ form.errors }}</div>
+<hr>
+
+<table>{{ form }}</table>
+	
+	<input type="submit"/>
+</form>
+
+{% endblock %}

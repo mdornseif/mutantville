@@ -1,0 +1,21 @@
+<div class="dayHeader">{{ story.pub_date|date:"l, d. F Y" }}</div>
+<div class="storyTitle">{{ story.title|escape }}</div>
+<div class="storyDate">
+	{% if story.creator.email %}
+		<a href="mailto:{{ story.creator.email }}">{{ story.creator }}</a>
+	{% else %}
+		{{ story.creator }}
+	{% endif %}
+	{{ story.pub_date|date:"H:m" }}h
+</div>
+<div>{{ story.content|escape }}</div>
+
+<div id="tags">
+{% if story.tags.count %}
+Tags:
+<ul>
+{% for tag in story.tags.all %}
+<a href="/tag/{{ tag.name }}">{{ tag.name }}</a>
+{% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+{% endblock %}
+
+{% block sidebar %}
+<div class="boxheader">menu</div>
+<div class="box">
+...&nbsp;<a href="/">blogs.23.nu home</a><br />
+...&nbsp;%= link_to "create a new site", :controller => 'site', :action => 'new' %>
+</div>
+
+<div class="boxline">&nbsp;</div>
+<div class="box">
+{{ public_blog_count }} public sites... <a href="/sites/">list</a>
+</div>
+{% endblock %}

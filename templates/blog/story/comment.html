@@ -1,0 +1,22 @@
+{% extends "blog/base_blog.html" %}
+
+{% block content %}
+<div class="dayHeader">{{ story.pub_date|date:"l, d. F Y" }}</div>
+<div class="storyTitle">{{ story.title }}</div>
+<div class="storyDate">
+	{% if story.creator.email %}
+		<a href="mailto:{{ story.creator.email }}">{{ story.creator }}</a>
+	{% else %}
+		{{ story.creator }}
+	{% endif %}
+	{{ story.pub_date|date:"H:m" }}h
+</div>
+<div>{{ story.content }}</div>
+
+<form action="." method="POST">
+	<input type="text" name="title"><br />
+	<textarea name="content"></textarea><br />
+	<input type="submit" name="submit" value="Abschicken">
+</form>
+
+{% endblock %}

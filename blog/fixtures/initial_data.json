@@ -1,0 +1,97 @@
+[
+    {
+        "pk": "1", 
+        "model": "auth.user", 
+        "fields": {
+            "username": "testuser", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2007-07-18 22:45:20", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$5d2ad$10e43a7424ae91b5529e8b1c809cd0c52335b9c0", 
+            "email": "test@example.com", 
+            "date_joined": "2007-07-18 22:45:20"
+        }
+    }, 
+  {
+    "pk": "1", 
+    "model": "blog.blog", 
+    "fields": {
+      "create_date": "2007-07-17 20:59:50", 
+      "title": "c0re", 
+      "tagline": "c0re is teb best!11!", 
+      "owner": 1, 
+      "private": false, 
+      "alias": "c0re"
+    }
+  }, 
+  {
+    "pk": "2", 
+    "model": "blog.blog", 
+    "fields": {
+      "create_date": "2007-07-17 20:59:50", 
+      "title": "Die üblichen Verdächtigen", 
+      "tagline": "Fuck you all", 
+      "owner": 1, 
+      "private": false, 
+      "alias": "verdacht"
+    }
+  }, 
+  {
+    "pk": "1", 
+    "model": "blog.story", 
+    "fields": {
+      "content": "Besser als slashdot!", 
+      "allow_comments": true, 
+      "creator": 1, 
+      "title": "First post!", 
+      "blog": 1, 
+      "is_public": true, 
+      "pub_date": "2007-07-17 21:00:22", 
+      "tags": []
+    }
+  }, 
+  {
+    "pk": "2", 
+    "model": "blog.story", 
+    "fields": {
+      "content": "voll automatisch", 
+      "allow_comments": false, 
+      "creator": 1, 
+      "title": "zweite story", 
+      "blog": 1, 
+      "is_public": false, 
+      "pub_date": "2007-07-17 23:14:00", 
+      "tags": [
+      ]
+    }
+  }, 
+  {
+    "pk": "3", 
+    "model": "blog.story", 
+    "fields": {
+      "content": "eiheilefei ifhiflefif", 
+      "allow_comments": false, 
+      "creator": 1, 
+      "title": "story woanders", 
+      "blog": 2, 
+      "is_public": false, 
+      "pub_date": "2007-07-18 21:17:00", 
+      "tags": [
+      ]
+    }
+  }, 
+  {
+    "pk": "1", 
+    "model": "blog.role", 
+    "fields": {
+      "blog": 1, 
+      "role": "A", 
+      "user": 1
+    }
+  }
+]

@@ -1,0 +1,18 @@
+{% extends "blog/base_blog.html" %}
+
+{% block content %}
+
+Recent stories:
+
+{% for story in recent_stories %}
+{% include "blog/include/story.html" %}
+
+<p>
+	<a href="{{ story.get_absolute_url }}">link</a>
+	{% comment %}
+	{% if %}
+	{% endif %}
+	{% endcomment %}
+</p>
+{% endfor %}
+{% endblock %}
