@@ -19,7 +19,7 @@ Recently updated sites:
 <ul>
   {% for site in recently_changed_blogs %}
   <li>{% link_to site %}
-  <span class="small">(Last update: {{ site.lastupdate }})</span></li>
+  <span class="small">(Last update: {{ site.last_update|date:"d.m.Y, H:i" }})</span></li>
   {% endfor %}
 </ul>
 

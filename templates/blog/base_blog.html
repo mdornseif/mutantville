@@ -16,8 +16,8 @@
 
 {% block sidebar %}
 <div class="box">
-Online for %= @site.age %> days<br />
-Last update: %= @site.lastupdate %>
+Online for {{ blog.age }} days<br />
+Last update: {{ blog.last_update|date:"d.m.Y" }}
 </div>
 
 <div class="boxheader">menu</div>
@@ -35,7 +35,9 @@ Last update: %= @site.lastupdate %>
 
 <div class="boxheader">calendar</div>
 <div class="box">
-  Hier entsteht ein Kalendar
+{% block calendar %}
+blog.story_set.latest('pub_date')
+{% endblock %}
 </div>
 
 <div class="boxheader">recent updates</div>

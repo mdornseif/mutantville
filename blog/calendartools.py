@@ -51,7 +51,7 @@ def create_calendar(date, stories, prev_month=None, next_month=None):
     post = 6 - last_day.weekday()
     daycnt = 1
     
-    cal = ['<table border="1">']
+    cal = ['<table>']
     cal.append('<caption>%s</caption>' % (date.strftime('%B %Y')))
     
     cal.append('<tr>')
