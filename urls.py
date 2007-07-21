@@ -9,10 +9,7 @@ import django.contrib.syndication.views
 import feeds
 
 urlpatterns = patterns('',
-    (r'^admin/', include('django.contrib.admin.urls')),
-    
-    (r'^rcal/$', blog.views.rcal),
-    
+    (r'^admin/', include('django.contrib.admin.urls')),    
     
     (r'^$', blog.views.root_index),
     (r'^sites/$', blog.views.root_sites),
