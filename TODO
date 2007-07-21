@@ -1,0 +1,27 @@
+Version 1
+* Login
+** User Preferences/Data
+** Registration
+** Forgot Password
+* MetaWeblog API
+** RSD - http://blogs.23.nu/c0re/stories/413/
+* Search via Google
+* Rendering backend for antville/HTML/Textile
+* referer
+* comment feeds
+* migrate content
+* site preferences
+** Protected Sites
+** Hidden Sites - http://blogs.23.nu/c0re/stories/5340/
+** configurable sidebar content
+** configurable colors
+** UnitTests
+
+Version 2
+** configurable css
+* Search via SQL
+* Trackback / Linkback http://blogs.23.nu/c0re/stories/433/
+* automatic referer spam detection
+* referer feeds
+* OpenID support
+* Atom Publishing Protocol Support
