@@ -5,7 +5,7 @@ from django import newforms #as forms
 from blog.models import *
 
 import datetime
-import calendar
+import calendartools as ct
 
 # Indexseite
 def root_index(request):
@@ -44,6 +44,15 @@ def story_list(request, blogname):
     return render_to_response('blog/blog_list.html', {'blog': blog, 'stories': stories,
                                                       'title': '%s: Stories' % (blog.title)},
                               context_instance=template.RequestContext(request))
+
+
+def story_archive(request, blogname, date):
+    blog = get_object_or_404(Blog, alias__exact=blogname)
+    year, month, day = map(int, (date[0:4], date[4:6], date[6:8]))
+    date = datetime.date(year, month, day)
+    story_list = Story.objects.filter(pub_date__gt=ct.prev_day(date), pub_date__lt=ct.next_day(date))
+    return render_to_response('blog/blog_archive.html', {'stories': story_list, 'blog': blog},
+                            context_instance=template.RequestContext(request))
 
 
 def story_detail(request, blogname, story_id):
@@ -214,7 +223,7 @@ def tag_list(request, blogname):
                                                      'title': 'Tags for %s' % (blog.title)},
                               context_instance=template.RequestContext(request))
     
-
+  
 def rcal(request):
     # XXX
     s = Story.objects.get(pk=1)

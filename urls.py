@@ -19,6 +19,8 @@ urlpatterns = patterns('',
     (r'^(\w+)/stories/(\d+)/comment/$', blog.views.story_comment),
     (r'^(\w+)/stories/(\d+)/delete/$', blog.views.story_delete),
     (r'^(\w+)/stories/(\d+)/edit/$', blog.views.new_story_edit),
+    (r'^(\w+)/(\d{8})/$', blog.views.story_archive),
+    
     
     (r'^(\w+)/tags/$', blog.views.tag_list),	
     (r'^(\w+)/tags/(\w+)/$', blog.views.tag_detail),
