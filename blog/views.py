@@ -217,6 +217,8 @@ def tag_list(request, blogname):
 
 def rcal(request):
     # XXX
+    s = Story.objects.get(pk=1)
+    return render_to_response('blog/calendar2.html', {'story': s})
     today = datetime.date.today()
     a = calendar.first_of_month(today)
     b = calendar.first_of_next_month(today)
