@@ -6,6 +6,7 @@ from blog.models import *
 
 import datetime
 import calendartools as ct
+import re
 
 # Indexseite
 def root_index(request):
@@ -58,6 +59,18 @@ def story_archive(request, blogname, date):
 def story_detail(request, blogname, story_id):
     blog = get_object_or_404(Blog, alias__exact=blogname)
     story = get_object_or_404(Story, pk=story_id, blog__pk=blog.id)
+
+    if request.META.has_key('HTTP_REFERER'):
+        domain = re.compile('http://(.*?)/.*').search(request.META['HTTP_REFERER']).group(1)
+        if domain != request.META['HTTP_HOST']:
+            referer, created = story.referer_set.get_or_create(story=story, url=request.META['HTTP_REFERER'])
+            referers = Referer.objects.filter(domain=domain)
+            if referers.count() > 0:
+                referer.spam = referers[0].spam
+                referer.checked = referers[0].checked
+
+            referer.count += 1
+            referer.save()
     return render_to_response('blog/story/detail.html', {'blog': blog, 'story': story,
                                                          'title': '%s - %s' % (story.title, blog.title)},
                               context_instance=template.RequestContext(request))

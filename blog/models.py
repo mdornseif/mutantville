@@ -104,6 +104,10 @@ class Story(models.Model):
 class Referer(models.Model):
     story = models.ForeignKey(Story, editable=False)
     url = models.URLField(verify_exists=False)
+    domain = models.CharField(maxlength=50)
+    count = models.IntegerField(default=0)
+    spam = models.BooleanField(default=True)
+    checked = models.BooleanField(default=False)
 
 class Comment(models.Model):
     title = models.CharField(maxlength=200, null=True, blank=True)

@@ -1,7 +1,6 @@
 {% extends "blog/base_blog.html" %}
 {% load blogtools %}
 
-
 {% block calendar %}
 {% calendar story.id %}
 {% endblock %}
@@ -39,10 +38,10 @@
 {% endif %}
 
 {% if story.referer_set.count %}
-<p><a name="backlinks" /><br />
+<p><a name="backlinks">Backlinks</a><br />
 <table border="0" cellspacing="0" cellpadding="1">
-{% for referer in story.referer_set %}
-<tr><td>referer.count</td><td>referer.url</td></tr>
+{% for referer in story.referer_set.all %}
+<tr><td>{{ referer.count }}</td><td>{{ referer.url }}</td></tr>
 {% endfor %}
 </table>
 </p>

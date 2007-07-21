@@ -86,6 +86,7 @@ def create_calendar(date, stories, prev_month=None, next_month=None):
             cal.append("<td>&nbsp;</td>")
     cal.append('</tr>')
     
+    # XXX: letzte vorherige story und erste neue
     cal.append('<tr>')
     if prev_month:
         cal.append('<td colspan="3">%s</td>' % (prev_month))
@@ -100,11 +101,3 @@ def create_calendar(date, stories, prev_month=None, next_month=None):
     
     cal.append("</table>")
     return "".join(cal)
-
-    
-if __name__ == "__main__":
-
-    t = datetime.date.today()
-    f = open("bla.html", "w")
-    f.write(create_calendar(t.year, t.month, t.day))
-    f.close()

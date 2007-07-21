@@ -72,13 +72,15 @@ class CalendarObject(template.Node):
         
         try:
             prev_month_stories = Story.objects.filter(blog__pk=story.blog.id, pub_date__lt=a).order_by('-pub_date')
-            prev_month = '<a href="bla">%s</a>' % (prev_month_stories[0].pub_date.strftime('%B'))
+            link = "/%s/%d%02d%02d" % (story.blog.alias, prev_month_stories[0].pub_date.year, prev_month_stories[0].pub_date.month, 1)
+            prev_month = '<a href="%s">%s</a>' % (link, prev_month_stories[0].pub_date.strftime('%B'))
         except IndexError:
             prev_month = None
 
         try:
             next_month_stories = Story.objects.filter(blog__pk=story.blog.id, pub_date__gt=b).order_by('pub_date')
-            next_month = '<a href="bla">%s</a>' % (next_month_stories[0].pub_date.strftime('%B'))
+            link = "/%s/%d%02d%02d" % (story.blog.alias, next_month_stories[0].pub_date.year, next_month_stories[0].pub_date.month, ct.last_of_month(next_month_stories[0].pub_date).day)
+            next_month = '<a href="%s">%s</a>' % (link, next_month_stories[0].pub_date.strftime('%B'))
         except IndexError:
             next_month = None
         
