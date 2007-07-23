@@ -11,6 +11,7 @@ import feeds
 urlpatterns = patterns('',
     (r'^admin/', include('django.contrib.admin.urls')),    
     
+    (r'^metaweblog/', 'blog.xmlrpc.view', {'module': 'blog.metaweblog'}),
     (r'^$', blog.views.root_index),
     (r'^sites/$', blog.views.root_sites),
     (r'^(\w+)/stories/(\d+)/comment/$', blog.views.story_comment),

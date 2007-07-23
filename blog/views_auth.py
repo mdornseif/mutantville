@@ -11,7 +11,7 @@ def register(request, blogname=None):
         blog = get_object_or_404(Blog, alias__exact=blogname)
     else:
         blog = None
-
+    
     UserForm = forms.form_for_model(User)
     
     if request.POST:
