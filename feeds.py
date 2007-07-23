@@ -38,6 +38,13 @@ class LatestEntries(Feed):
     #    categories.
     #    """
 
+
+class LatestComments(LatestEntries):
+    def items(self):
+        pass
+        #return self.blog. ...
+
+
 def feedview(request, blogname):
     blog = get_object_or_404(Blog, alias__exact=blogname)
     feedinstance = LatestEntries(blogname, request)

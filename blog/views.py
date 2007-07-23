@@ -79,22 +79,34 @@ def new_story_add(request, blogname):
     blog = get_object_or_404(Blog, alias__exact=blogname)
     
     StoryForm = newforms.form_for_model(Story)
-    StoryForm.base_fields['tags'].widget = newforms.widgets.HiddenInput()
     
     if request.POST:
-        form = StoryForm(request.POST)
+
+        data = request.POST.copy()
+
+        tags = request.POST.get('tags', '').split(' ')
+        taglist = [ str(Tag.objects.get_or_create(name=tag, blog=blog)[0].id) for tag in tags if tag]
+        print taglist
+        data.setlist('tags', taglist)
+        print data
+        
+        form = StoryForm(data)
 
         if form.is_valid():
+            print "clean:", form.cleaned_data
+            
             new_story = form.save(commit=False)
             new_story.blog_id = blog.id
             new_story.creator_id = request.user.id
             new_story.save()
             return HttpResponseRedirect(new_story.get_absolute_url())
     else:
+        StoryForm.base_fields['tags'].widget = newforms.widgets.TextInput()
         form = StoryForm()
     
     return render_to_response('blog/story/add.html', {'form': form,
-                                                      'title': 'Add Story: %s' % (blog.title)},
+                                                      'title': 'Add Story: %s' % (blog.title),
+                                                      'blog': blog},
                                   context_instance=template.RequestContext(request))
 
 def story_add(request, blogname):

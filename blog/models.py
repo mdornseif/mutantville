@@ -83,7 +83,6 @@ class Role(models.Model):
         pass
 
 
-
 class Tag(models.Model):
     name = models.CharField(maxlength=20, core=True)
     blog = models.ForeignKey(Blog)
@@ -104,7 +103,7 @@ class Story(models.Model):
     content = models.TextField()
     # slug = models.SlugField(prepopulate_from=("title",))
     creator = models.ForeignKey(User, editable=False) #  TEXT_F_USER_CREATOR: 5
-    pub_date = models.DateTimeField('date created', editable=False) # TEXT_CREATETIME: 2003-07-03 10:58:06
+    pub_date = models.DateTimeField('date created', editable=False, default=datetime.datetime.now) # TEXT_CREATETIME: 2003-07-03 10:58:06
     allow_comments = models.BooleanField(default=True) # TEXT_HASDISCUSSIONS: 1
     is_public = models.BooleanField(default=True) #        TEXT_ISONLINE: 2
     tags = models.ManyToManyField(Tag, blank=True)
