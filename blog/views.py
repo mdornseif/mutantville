@@ -83,22 +83,22 @@ def new_story_add(request, blogname):
     if request.POST:
 
         data = request.POST.copy()
-
         tags = request.POST.get('tags', '').split(' ')
         taglist = [ str(Tag.objects.get_or_create(name=tag, blog=blog)[0].id) for tag in tags if tag]
-        print taglist
         data.setlist('tags', taglist)
-        print data
         
         form = StoryForm(data)
 
         if form.is_valid():
-            print "clean:", form.cleaned_data
-            
             new_story = form.save(commit=False)
+            
             new_story.blog_id = blog.id
             new_story.creator_id = request.user.id
             new_story.save()
+            
+            for tag in form.cleaned_data['tags']:
+                new_story.tags.add(tag)            
+            
             return HttpResponseRedirect(new_story.get_absolute_url())
     else:
         StoryForm.base_fields['tags'].widget = newforms.widgets.TextInput()
