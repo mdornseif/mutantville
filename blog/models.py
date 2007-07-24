@@ -69,16 +69,40 @@ class Blog(models.Model):
     @permalink
     def get_absolute_url(self):
         return ('blog.views.blog_index', [str(self.alias)])
-
+    
     def age(self):
         return (datetime.datetime.now() - self.create_date).days
-
+    
+    def has_permission(self, user, action):
+        # ('S', 'Subscriber'),
+        # ('C', 'Contributor'),
+        # ('M', 'Contentmanager'),
+        # ('A', 'Admin'),
+        roles = list(self.roles.filter(user=user))
+        role = ''
+        if len(roles) > 1:
+            raise RuntimeError, 'User has more than one role for this blog'
+        else:
+            role = roles[0]
+        if action == 'read': # get list of stories
+            if (not blog.private) or role in ('S', 'C', 'M', 'A'):
+                return True
+        elif action == 'add': # add a story
+            if role in ('C', 'M', 'A'):
+                return True
+        elif action == 'edit': # change preferences
+            if role == 'A':
+                return True
+        else:
+            raise ProgrammingError, 'unknown action %r' % action
+        # default: permission denied
+        return False
 
 class Role(models.Model):
     user = models.ForeignKey(User)
     blog = models.ForeignKey(Blog)
     role = models.CharField(maxlength=1, choices=ROLE_CHOICES)
-
+    # TODO: unique(user, blog)
     class Admin:
         pass
 
@@ -125,7 +149,31 @@ class Story(models.Model):
 
     def __str__(self):
         return self.title
-
+    
+    def has_permission(self, user, action):
+        # ('S', 'Subscriber'),
+        # ('C', 'Contributor'),
+        # ('M', 'Contentmanager'),
+        # ('A', 'Admin'),
+        roles = list(self.roles.filter(user=user))
+        role = ''
+        if len(roles) > 1:
+            raise RuntimeError, 'User has more than one role for this blog'
+        else:
+            role = roles[0]
+        if action == 'read': # display story
+            if (story.is_public and self.blog.has_permission(user, action)) \
+               or role in ('S', 'C', 'M', 'A'):
+                return True
+        elif action in ('edit', 'delete'): # change story
+            if (story.creator == user) \
+               or role in ('M', 'A'):
+                return True
+        else:
+            raise ProgrammingError, 'unknown action %r' % action
+        # default: permission denied
+        return False
+    
     class Admin:
         pass
 

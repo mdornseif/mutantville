@@ -7,6 +7,7 @@ Created by Maximillian Dornseif on 2007-07-23.
 """
 
 import datetime
+from django.contrib.auth import authenticate
 from blog.models import Blog, Story
 from xmlrpc import public
 
@@ -71,10 +72,10 @@ def metaWeblog_getPost(postid, username, password):
     categories. On the server side, it's not an error if the category doesn't exist, only record categories
     for ones that do exist.
     """
-    
-    # TODO: check username, password and authorisation
+    user = authenticate(username=username, password=password)
     story = Story.objects.get(id=postid)
-    return story2struct(story)
+    if story.has_permission(user, 'read'):
+        return story2struct(story)
 
 
 @public
@@ -91,10 +92,10 @@ def metaWeblog_getRecentPosts(blogid, username, password, numberOfPosts):
     all the posts in the weblog.
     """
     
-    # TODO: check username, password and authorisation
     blog = Blog.objects.get(alias__exact=blogid)
-    return [story2struct(x) for x in blog.story_set.filter()[:numberOfPosts]]
-
+    user = authenticate(username=username, password=password)
+    return [story2struct(x) for x in blog.story_set.filter()[:numberOfPosts] if x..has_permission(user, 'read')]
+    
 
 @public
 def metaWeblog_newPost (blogid, username, password, struct, publish):
@@ -102,6 +103,8 @@ def metaWeblog_newPost (blogid, username, password, struct, publish):
     
     # TODO: check username, password and authorisation
     blog = Blog.objects.get(alias__exact=blogid)
+    if not blog.has_permission(user, 'add'):
+        return None
     story = Story()
     story.blog = blog
     struct2story(story, struct)
@@ -117,6 +120,8 @@ def metaWeblog_editPost(postid, username, password, struct, publish):
     
     # TODO: check username, password and authorisation
     story = Story.objects.get(id=postid)
+    if not story.has_permission(user, 'edit'):
+        return None
     struct2story(story, struct)
     story.is_public = publish
     story.save()
