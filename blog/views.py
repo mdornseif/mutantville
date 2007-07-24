@@ -32,7 +32,7 @@ def root_sites(request):
 
 def blog_index(request, blogname):
     blog = get_object_or_404(Blog, alias__exact=blogname)
-    story_list = blog.story_set.filter(blog__pk=blog.id)[:10]
+    story_list = blog.story_set.filter(blog__pk=blog.id, is_public=True)[:5]
     return render_to_response('blog/blog_index.html', {'blog': blog, 'recent_stories': story_list,
                                                        'title': '%s: Index' % (blog.title)},
                               context_instance=template.RequestContext(request))
@@ -91,7 +91,7 @@ def story_add(request, blogname):
         return HttpResponseRedirect('/members/login/')
 
     
-    StoryForm = forms.form_for_model(Story)
+    StoryForm = newforms.form_for_model(Story)
     
     if request.POST:
         data = request.POST.copy()
@@ -116,6 +116,9 @@ def story_add(request, blogname):
     StoryForm.base_fields['tags'].widget = newforms.widgets.TextInput()
     StoryForm.base_fields['tags'].help_text = ''
     form = StoryForm()
+    print form.fields
+    form.fields['allow_comments'].initial = 1
+    form.fields['is_public'].initial = 1
     
     return render_to_response('blog/story/add.html', {'form': form,
                                                       'title': 'Add Story: %s' % (blog.title),

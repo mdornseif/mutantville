@@ -15,7 +15,7 @@
 Tags:
 <ul>
 {% for tag in story.tags.all %}
-<a href="/tag/{{ tag.name }}">{{ tag.name }}</a>
+<a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
 {% endfor %}
 </div>
 {% endif %}
