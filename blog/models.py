@@ -155,7 +155,7 @@ class Story(models.Model):
         # ('C', 'Contributor'),
         # ('M', 'Contentmanager'),
         # ('A', 'Admin'),
-        roles = list(self.roles.filter(user=user))
+        roles = list(self.blog.roles.filter(user=user))
         role = ''
         if len(roles) > 1:
             raise RuntimeError, 'User has more than one role for this blog'
