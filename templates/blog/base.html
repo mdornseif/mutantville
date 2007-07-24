@@ -40,9 +40,9 @@
 {% if not user.is_anonymous %}
 Logged in as {{ user.username }}<br />
 ...&nbsp; <a href="/change_password/">change password</a><br />
-...&nbsp; <a href="/logout/">logout</a><br />
+...&nbsp; <a href="/members/logout/">logout</a><br />
 {% else %}
-You're not logged in ... <a href="/login/">login</a><br /></a>
+You're not logged in ... <a href="/members/login/">login</a><br /></a>
 {% endif %}
 </div>
 {% endblock %}

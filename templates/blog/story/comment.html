@@ -13,10 +13,13 @@
 </div>
 <div>{{ story.content }}</div>
 
+<div>{{ form.errors }}</div>
+
 <form action="." method="POST">
-	<input type="text" name="title"><br />
-	<textarea name="content"></textarea><br />
-	<input type="submit" name="submit" value="Abschicken">
+	<table>
+		{{ form }}
+		<tr><td colspan="2"><input type="submit"/></td></tr>
+	</table>
 </form>
 
 {% endblock %}

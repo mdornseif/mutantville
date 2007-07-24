@@ -24,6 +24,8 @@ Last update: {{ blog.last_update|date:"d.m.Y" }}
 <div class="box">
 ...&nbsp;<a href="{{ blog.get_absolute_url }}stories/">stories</a><br />
 ...&nbsp;<a href="{{ blog.get_absolute_url }}stories/add/">new story</a><br />
+...&nbsp;<a href="{{ blog.get_absolute_url }}tags/">tags</a><br />
+
 ...&nbsp;%= link_to "preferences", :controller => 'site', :action => 'edit' %><br />
 ...&nbsp;<a href="/">blogs.23.nu home</a>
 </div>

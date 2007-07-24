@@ -90,9 +90,10 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.name
 
-    @permalink
+    #@permalink
     def get_absolute_url(self):
-        return ('blog.views.tag_detail', [str(self.name)])
+        return self.blog.get_absolute_url() + 'tags/%s' % (self.name)
+        #return ('blog.views.tag_detail', [str(self.name)])
 
 RENDERING_TYPE_CHOICES = (('A', 'Antville'), ('T', 'Textile'), ('R', 'ReStructured Text'), ('P', 'Plain Text'))
 
@@ -143,9 +144,9 @@ class Referer(models.Model):
 class Comment(models.Model):
     title = models.CharField(maxlength=200, null=True, blank=True)
     content = models.TextField()
-    story = models.ForeignKey(Story)
-    creator = models.ForeignKey(User, blank=True, null=True)
-    pub_date = models.DateTimeField('date created')
+    story = models.ForeignKey(Story, editable=False)
+    creator = models.ForeignKey(User, blank=True, null=True, editable=False)
+    pub_date = models.DateTimeField('date created', editable=False, default=datetime.datetime.now)
 
     def __unicode__(self):
         return self.title

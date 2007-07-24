@@ -2,7 +2,7 @@ from django.contrib.syndication import feeds
 from django.http import HttpResponse, Http404
 from django.contrib.syndication.feeds import Feed
 from django.utils.feedgenerator import Atom1Feed
-from blog.models import Blog, Story
+from blog.models import Blog, Story, Comment
 from django.shortcuts import get_object_or_404
 
 class LatestEntries(Feed):
@@ -41,8 +41,7 @@ class LatestEntries(Feed):
 
 class LatestComments(LatestEntries):
     def items(self):
-        pass
-        #return self.blog. ...
+        return Comments.objects.filter(story__blog__pk=self.blog.id).order_by('-pub_date')[:25]
 
 
 def feedview(request, blogname):

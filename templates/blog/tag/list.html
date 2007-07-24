@@ -1,4 +1,4 @@
-{% extends "blog/base.html" %}
+{% extends "blog/base_blog.html" %}
 
 {% block title %}
 Tag List
@@ -8,7 +8,7 @@ Tag List
 
 All Tags for blog:
 
-{% for tag in tag_list %}
-<div><a href="{{ tag.get_absolute_url }}/{{ tag.name }}">{{ tag.name }}</a></div>
+{% for tag in tags %}
+<div><a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a></div>
 {% endfor %}
 {% endblock %}

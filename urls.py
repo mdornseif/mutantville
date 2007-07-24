@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     (r'^sites/$', blog.views.root_sites),
     (r'^(\w+)/stories/(\d+)/comment/$', blog.views.story_comment),
     (r'^(\w+)/stories/(\d+)/delete/$', blog.views.story_delete),
-    (r'^(\w+)/stories/(\d+)/edit/$', blog.views.new_story_edit),
+    (r'^(\w+)/stories/(\d+)/edit/$', blog.views.story_edit),
     (r'^(\w+)/(\d{8})/$', blog.views.story_archive),
     
     
@@ -35,7 +35,7 @@ urlpatterns = patterns('',
     (r'^(\w+)/stories/$', blog.views.story_list),
     (r'^(?P<blogname>\w+)/stories/atom.xml$', feeds.feedview),
     (r'^(\w+)/stories/(\d+)/$', blog.views.story_detail),
-    (r'^(\w+)/stories/add/$', blog.views.new_story_add),
+    (r'^(\w+)/stories/add/$', blog.views.story_add),
 )
 
 if settings.DEBUG:

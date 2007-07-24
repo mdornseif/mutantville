@@ -1,7 +1,6 @@
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden, HttpResponseNotFound
 from django.shortcuts import render_to_response, get_object_or_404
-from django import template, forms # XXX: newforms?
-from django import newforms #as forms
+from django import template, newforms
 from blog.models import *
 
 import datetime
@@ -75,13 +74,26 @@ def story_detail(request, blogname, story_id):
                                                          'title': '%s - %s' % (story.title, blog.title)},
                               context_instance=template.RequestContext(request))
 
-def new_story_add(request, blogname):
+def story_add(request, blogname):
     blog = get_object_or_404(Blog, alias__exact=blogname)
     
-    StoryForm = newforms.form_for_model(Story)
+    allow = False
+    if request.user.is_authenticated():
+        try:
+            role = Role.objects.get(user__pk=request.user.id, blog__pk=blog.id)
+            if role.role in "AMC":
+                allow = True
+        except Role.DoesNotExist:
+            pass
+
+    if allow == False: # XXX redirect to login-page with next=/stories/add
+        error_message = "You must not create a story in this blog"
+        return HttpResponseRedirect('/members/login/')
+
+    
+    StoryForm = forms.form_for_model(Story)
     
     if request.POST:
-
         data = request.POST.copy()
         tags = request.POST.get('tags', '').split(' ')
         taglist = [ str(Tag.objects.get_or_create(name=tag, blog=blog)[0].id) for tag in tags if tag]
@@ -100,87 +112,73 @@ def new_story_add(request, blogname):
                 new_story.tags.add(tag)            
             
             return HttpResponseRedirect(new_story.get_absolute_url())
-    else:
-        StoryForm.base_fields['tags'].widget = newforms.widgets.TextInput()
-        form = StoryForm()
+
+    StoryForm.base_fields['tags'].widget = newforms.widgets.TextInput()
+    StoryForm.base_fields['tags'].help_text = ''
+    form = StoryForm()
     
     return render_to_response('blog/story/add.html', {'form': form,
                                                       'title': 'Add Story: %s' % (blog.title),
                                                       'blog': blog},
                                   context_instance=template.RequestContext(request))
 
-def story_add(request, blogname):
-    blog = get_object_or_404(Blog, alias__exact=blogname)
-    allow = False
-    if request.user.is_authenticated():
-        try:
-            role = Role.objects.get(user__pk=request.user.id, blog__pk=blog.id)
-            if role.role in "AMC":
-                allow = True
-        except Role.DoesNotExist:
-            pass
 
-    if allow == False: # XXX redirect to login-page with next=/stories/add
-        error_message = "You must not create a story in this blog"
-        return HttpResponseRedirect('/login/')
-        #return HttpResponse("You must not create a story in this blog")
-
-    manipulator = Story.AddManipulator()
-    print request.user
-    if request.POST:
-        
-        new_data = request.POST.copy()
-        new_data['blog'] = blog.id
-        new_data['creator'] = request.user.id
-        new_data['pub_date_date'] = datetime.datetime.now().strftime("%Y-%m-%d")
-        new_data['pub_date_time'] = datetime.datetime.now().strftime("%H:%M")
-
-        errors = manipulator.get_validation_errors(new_data)
-        print "errors: ", errors
-        
-        if not errors:
-            manipulator.do_html2python(new_data)
-            new_story = manipulator.save(new_data)
-            
-            if request.POST.has_key('tag_list') and request.POST['tag_list']:      
-                for tag_name in request.POST['tag_list'].split(' '): 
-                    tag_object = Tag.objects.get_or_create(name__exact=tag_name, defaults={'name': tag_name, 'blog': blog})[0] 
-                    new_story.tags.add(tag_object)
-                new_story.save()
-            
-            #request.user.message_set.create(message="Story created successfully.")
-            return HttpResponseRedirect(new_story.get_absolute_url())
-    else:
-        errors = new_data = {}
-        
-    form = forms.FormWrapper(manipulator, new_data, errors)
-    return render_to_response('blog/story/add.html', {'form': form,
-                                                      'title': 'Add Story: %s' % (blog.title)},
-                              context_instance=template.RequestContext(request))
-
-
-def new_story_edit(request, blogname, story_id):
+def story_edit(request, blogname, story_id):
     blog = get_object_or_404(Blog, alias__exact=blogname)
     story = get_object_or_404(Story, pk=story_id, blog__pk=blog.id)
-    
+
+    allow = False
+    if request.user.is_authenticated():
+        if story.creator == request.user:
+            allow = True
+        else:
+            try:
+                role = Role.objects.get(user__pk=request.user.id, blog__pk=blog.id)
+                if role.role in "AM":
+                    allow = True
+            except Role.DoesNotExist:
+                pass
+        
+
+    if allow == False: # XXX redirect to login-page with next=/stories/add
+        error_message = "You must not edit this story"
+        return HttpResponseRedirect('/members/login/')
+
     StoryForm = newforms.form_for_instance(story)
-    #StoryForm.base_fields['tags'].widget = newforms.widgets.HiddenInput()
-    #StoryForm.base_fields['tags'].required = False
 
     if request.POST:
-        form = StoryForm(request.POST)
+
+        data = request.POST.copy()
+        tags = request.POST.get('tags', '').split(' ')
+        taglist = [ str(Tag.objects.get_or_create(name=tag, blog=blog)[0].id) for tag in tags if tag ]
+        data.setlist('tags', taglist)
+
+        old_tag_set = set([ str(tag.id) for tag in story.tags.all() ])
+        new_tag_set = set(taglist)
+
+        form = StoryForm(data)
+
         if form.is_valid():
-            new_story = form.save(commit=False)
-            new_story.blog_id = blog.id
-            new_story.creator_id = request.user.id
-            new_story.save()
-            return HttpResponseRedirect(new_story.get_absolute_url())
+            story = form.save(commit=False)
+
+            for tag in old_tag_set - new_tag_set:
+                story.tags.remove(tag)
+            for tag in new_tag_set - old_tag_set:
+                story.tags.add(tag)
+
+            story.save()
+            return HttpResponseRedirect(story.get_absolute_url())
             
-    else:
-        form = StoryForm()
+
+    tags = " ".join([ tag.name for tag in story.tags.all() ])
+    StoryForm.base_fields['tags'].widget = newforms.widgets.TextInput()
+    StoryForm.base_fields['tags'].help_text = ''
+    StoryForm.base_fields['tags'].initial = tags
+    form = StoryForm()
     
     return render_to_response('blog/story/add.html', {'form': form,
-                                                      'title': 'Add Story: %s' % (blog.title)},
+                                                      'title': 'Edit Story: %s' % (blog.title),
+                                                      'blog': blog},
                                   context_instance=template.RequestContext(request))
     
 
@@ -191,36 +189,45 @@ def story_comment(request, blogname, story_id):
     if not story.allow_comments:
         return HttpResponseForbidden("NO COMMENTS")
 
-    manipulator = Comment.AddManipulator()
+    CommentForm = newforms.form_for_model(Comment)
 
     if request.POST:
-        new_data = request.POST.copy()
-        print request.user
-        print request.user.id
-        new_data['creator'] = request.user.id
-        new_data['story'] = story.id
-        new_data['pub_date_date'] = datetime.datetime.now().strftime("%Y-%m-%d")
-        new_data['pub_date_time'] = datetime.datetime.now().strftime("%H:%M")
+        form = CommentForm(request.POST)
 
-        errors = manipulator.get_validation_errors(new_data)
-        print "errors: ", errors
-
-        if not errors:
-            manipulator.do_html2python(new_data)
-            new_comment = manipulator.save(new_data)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.creator = request.user
+            new_comment.story = story
+            new_comment.save()
             return HttpResponseRedirect(new_comment.get_absolute_url())
-    else:
-        errors = new_data = {}
 
-    form = forms.FormWrapper(manipulator, new_data, errors)
-    return render_to_response('blog/story/comment.html', {'story': story,
+   
+    form = CommentForm()
+    return render_to_response('blog/story/comment.html', {'form': form,
+                                                          'story': story,
+                                                          'blog': blog,
                                                           'title': 'Add Comment: %s - %s' % (story.title, blog.title)})
+
 
 def story_delete(request, story_id):
     story = get_object_or_404(Story, pk=story_id)
-    if not (request.user.is_authenticated() and request.user.has_perm('blog.story.can_delete_story')):
+    
+    allow = False
+    if request.user.is_authenticated():
+        if story.creator == request.user:
+            allow = True
+        else:
+            try:
+                role = user.role_set(blog=blog)
+                if role.role in "AM":
+                    allow = True
+            except Role.DoesNotExist:
+                pass
+    
+    
+    if allow == False:
         error_message = "You must not delete a story in this blog"
-        return HttpResponseRedirect('/login/')
+        return HttpResponseRedirect('/members/login/')
             
     if request.POST:
         action = request.POST.get('action', None)
@@ -238,12 +245,14 @@ def tag_detail(request, blogname, tagname):
     tag = get_object_or_404(Tag, name__exact=tagname, blog__pk=blog.id)
     stories = tag.story_set.all()
     return render_to_response('blog/tag/detail.html', {'tag': tag,
+                                                       'blog': blog,
                                                        'title': 'Stories for Tag %s' % (tag.name)},
                               context_instance=template.RequestContext(request))
 
 def tag_list(request, blogname):
     blog = get_object_or_404(Blog, alias__exact=blogname)
-    tag_list = Tag.objects.filter(blog__pk=blog.id)
-    return render_to_response('blog/tag/list.html', {'tag_list': tag_list,
+    tags = Tag.objects.filter(blog__pk=blog.id)
+    return render_to_response('blog/tag/list.html', {'tags': tags,
+                                                     'blog': blog,
                                                      'title': 'Tags for %s' % (blog.title)},
                               context_instance=template.RequestContext(request))
